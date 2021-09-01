@@ -9,7 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Grid>
-		<TextBlock HorizontalAlignment="Left" Margin="592,174,0,0" Text="Hi Allie!" TextWrapping="Wrap" VerticalAlignment="Top"/>
+		<TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="Hi Allie!" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ListView/>
 
-	</Grid>
+    </Grid>
 </Page>

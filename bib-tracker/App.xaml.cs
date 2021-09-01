@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bib_tracker.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace bib_tracker
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            SqliteDb.InitializeDatabase();
         }
 
         /// <summary>

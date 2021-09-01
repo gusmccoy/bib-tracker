@@ -14,6 +14,10 @@ namespace bib_tracker.DataAccess
     {
         public const string DB_FILENAME = "bib_tracker.db";
 
+        public static string PARTICIPANT_FILENAME = "";
+        public static string STATION_FILENAME = "";
+        public static string CHECKIN_FILENAME = "";
+
         public async static void InitializeDatabase()
         {
             await ApplicationData.Current.LocalFolder.CreateFileAsync(DB_FILENAME, CreationCollisionOption.OpenIfExists);
@@ -44,7 +48,40 @@ namespace bib_tracker.DataAccess
             }
         }
 
+        public static void ReadFileData(string fileType)
+        {
+            string path = @"c:\temp\MyTest.txt";
 
+            switch (fileType)
+            {
+                case "PARTICIPANT":
+                    path = @PARTICIPANT_FILENAME;
+                    //path = @"sample.txt";
+                    break;
+                case "STATION":
+                    path = STATION_FILENAME;
+                    break;
+                case "CHECKIN":
+                    path = CHECKIN_FILENAME;
+                    break;
+            }
+
+            // Open the stream and read it back.
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string s = "";
+                while ((s = sr.ReadLine()) != null)
+                {
+                    string[] line = s.Split('\t');
+                    AddParticipant(new Participant()
+                    {
+                        Bib = Int32.Parse(line[0]),
+                        FirstName = line[1],
+                        LastName = line[2]
+                    });
+                }
+            }
+        }
         public static long AddParticipant(Participant participant)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
