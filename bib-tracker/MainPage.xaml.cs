@@ -26,10 +26,9 @@ namespace bib_tracker
         public MainPage()
         {
             this.InitializeComponent();
-            PickFile();
         }
 
-        public async void PickFile()
+        private async void ImportParticipantsBtn_Click(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
             picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
@@ -40,8 +39,45 @@ namespace bib_tracker
             if (file != null)
             {
                 this.MainTextBlock.Text = "Reading in " + file.Path;
-                SqliteDb.PARTICIPANT_FILENAME = file.Path;
-                SqliteDb.ReadFileData("PARTICIPANT");
+                SqliteDb.ReadFileData("PARTICIPANT", file);
+            }
+            else
+            {
+                this.MainTextBlock.Text = "Operation cancelled.";
+            }
+        }
+
+        private async void ImportStationsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            picker.FileTypeFilter.Add(".txt");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                this.MainTextBlock.Text = "Reading in " + file.Path;
+                SqliteDb.ReadFileData("STATION", file);
+            }
+            else
+            {
+                this.MainTextBlock.Text = "Operation cancelled.";
+            }
+        }
+
+        private async void ImportCheckInsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            picker.FileTypeFilter.Add(".txt");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                this.MainTextBlock.Text = "Reading in " + file.Path;
+                SqliteDb.ReadFileData("CHECKIN", file);
             }
             else
             {
