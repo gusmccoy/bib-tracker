@@ -2,9 +2,9 @@
     x:Class="bib_tracker.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:bib_tracker"
+    xmlns:local="using:bib_tracker.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -13,6 +13,18 @@
         <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="100,545,0,0" VerticalAlignment="Top" Height="50" Click="ImportParticipantsBtn_Click"/>
         <Button x:Name="ImportStationsBtn" Content="Import Stations" Margin="350,545,0,0" VerticalAlignment="Top" Height="50" Click="ImportStationsBtn_Click"/>
         <Button x:Name="ImportCheckInsBtn" Content="Import Check-ins" Margin="600,545,0,0" VerticalAlignment="Top" Height="50" Click="ImportCheckInsBtn_Click"/>
+        <Grid>
+            <ListView x:Name="folderListView" Width="167" ItemsSource="{x:Bind Participants, Mode=TwoWay}" Margin="25,68,558,67">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Participant">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind FirstName}" FontWeight="Bold"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
 
     </Grid>
 </Page>

@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using bib_tracker.DataAccess;
+using bib_tracker.Model;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -23,9 +25,11 @@ namespace bib_tracker
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public ObservableCollection<Participant> Participants;
         public MainPage()
         {
             this.InitializeComponent();
+            Participants = new ObservableCollection<Participant>();
         }
 
         private async void ImportParticipantsBtn_Click(object sender, RoutedEventArgs e)
@@ -40,6 +44,10 @@ namespace bib_tracker
             {
                 this.MainTextBlock.Text = "Reading in " + file.Path;
                 SqliteDb.ReadFileData("PARTICIPANT", file);
+
+                foreach (Participant runner in SqliteDb.GetAllParticipants())
+                    Participants.Add(runner);
+
             }
             else
             {

@@ -1,6 +1,7 @@
 ﻿using bib_tracker.Model;
 using Microsoft.Data.Sqlite;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Windows.Storage;
 
@@ -157,31 +158,32 @@ namespace bib_tracker.DataAccess
             return participant;
         }
 
-        //        public static List<Note> GetAllNotes()
-        //        {
-        //            var notes = new List<Note>();
+        public static List<Participant> GetAllParticipants()
+        {
+            var participants = new List<Participant>();
 
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand("SELECT noteId, title, content FROM note", conn);
-        //                SqliteDataReader query = cmd.ExecuteReader();
-        //                while (query.Read())
-        //                {
-        //                    notes.Add(new Note
-        //                    {
-        //                        Id = query.GetInt32(0),
-        //                        Title = query.GetString(1),
-        //                        Content = query.GetString(2)
-        //                    });
-        //                }
-        //                conn.Close();
-        //            }
+                SqliteCommand cmd = new SqliteCommand("SELECT id, bib, firstName, lastName FROM participant", conn);
+                SqliteDataReader query = cmd.ExecuteReader();
+                while (query.Read())
+                {
+                    participants.Add(new Participant
+                    {
+                        Id = query.GetInt32(0),
+                        Bib = query.GetInt32(1),
+                        FirstName = query.GetString(2),
+                        LastName = query.GetString(3)
+                    });
+                }
+                conn.Close();
+            }
 
-        //            return notes;
-        //        }
+            return participants;
+        }
 
         //        public static void UpdateNote(Note note)
         //        {
