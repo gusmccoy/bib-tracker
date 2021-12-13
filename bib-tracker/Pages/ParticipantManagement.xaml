@@ -2,33 +2,27 @@
     x:Class="bib_tracker.ParticipantManagement"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:bib_tracker.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="145,126,0,0" Text="HI ALL TEST TEST" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="0,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
-
-        <ListView x:Name="folderListView" Width="167" ItemsSource="{x:Bind Participants, Mode=TwoWay}" Margin="25,68,558,67">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Participant">
-                    <StackPanel>
-                        <TextBlock Text="{x:Bind FirstName}" FontWeight="Bold"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <ListView x:Name="folderLisView" Width="167" ItemsSource="{x:Bind Participants, Mode=TwoWay}" Margin="457,68,656,67">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Participant">
-                    <StackPanel>
-                        <TextBlock Text="{x:Bind LastName}" FontWeight="Bold"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <controls:DataGrid
+                Name="ParticipantDataGrid"
+                ItemsSource="{x:Bind Participants, Mode=OneWay}"
+                HeadersVisibility="Column"
+                AlternatingRowBackground="LightBlue"
+                AutoGenerateColumns="False" Margin="0,0,0,0"
+                HorizontalAlignment="Center">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Bib No." Binding="{Binding Bib}"/>
+                <controls:DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                <controls:DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
     </Grid>
 </Page>
