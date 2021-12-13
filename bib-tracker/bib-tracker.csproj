@@ -119,17 +119,26 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CheckInManagement.xaml.cs">
+      <DependentUpon>CheckInManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\ParticipantRepository.cs" />
     <Compile Include="DataAccess\ParticipantCheckInRepository.cs" />
     <Compile Include="DataAccess\SqliteDb.cs" />
     <Compile Include="DataAccess\StationRepository.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Participant.cs" />
     <Compile Include="Model\ParticipantCheckIn.cs" />
     <Compile Include="Model\Station.cs" />
+    <Compile Include="Pages\ParticipantManagement.xaml.cs">
+      <DependentUpon>ParticipantManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pages\StationManagement.xaml.cs">
+      <DependentUpon>StationManagement.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -151,9 +160,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\CheckInManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ParticipantManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StationManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -92,5 +92,20 @@ namespace bib_tracker
                 this.MainTextBlock.Text = "Operation cancelled.";
             }
         }
+
+        private void ParticipantManagementBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(ParticipantManagement));
+        }
+
+        private void StationManagementBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(StationManagement));
+        }
+
+        private void CheckInManagementBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CheckInManagement));
+        }
     }
 }
