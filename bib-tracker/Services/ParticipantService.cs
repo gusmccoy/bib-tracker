@@ -37,6 +37,11 @@ namespace bib_tracker.Services
             participantRepository.Add(new Participant(participantView));
         }
 
+        public void UpdateParticipant(Participant participantView)
+        {
+            participantRepository.Update(participantView);
+        }
+
         public void LoadFile(StorageFile file)
         {
             participantRepository.LoadParticipantFile(file);

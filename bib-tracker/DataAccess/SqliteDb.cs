@@ -185,26 +185,27 @@ namespace bib_tracker.DataAccess
             return participants;
         }
 
-        //        public static void UpdateNote(Note note)
-        //        {
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+        public static void UpdateParticipant(Participant participant)
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand();
-        //                cmd.Connection = conn;
+                SqliteCommand cmd = new SqliteCommand();
+                cmd.Connection = conn;
 
-        //                cmd.CommandText = "UPDATE note SET title = @Title, content = @Content WHERE noteId = @Id";
-        //                cmd.Parameters.AddWithValue("@Title", note.Title);
-        //                cmd.Parameters.AddWithValue("@Content", note.Content);
-        //                cmd.Parameters.AddWithValue("@Id", note.Id);
+                cmd.CommandText = "UPDATE participant SET firstName = @FirstName, lastName = @LastName, bib = @Bib WHERE id = @Id";
+                cmd.Parameters.AddWithValue("@FirstName", participant.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", participant.LastName);
+                cmd.Parameters.AddWithValue("@Bib", participant.Bib);
+                cmd.Parameters.AddWithValue("@Id", participant.Id);
 
-        //                cmd.ExecuteReader();
+                cmd.ExecuteReader();
 
-        //                conn.Close();
-        //            }
-        //        }
+                conn.Close();
+            }
+        }
 
         //        public static void DeleteNote(long noteId)
         //        {

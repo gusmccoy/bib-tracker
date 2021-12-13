@@ -1,5 +1,6 @@
 ﻿using bib_tracker.DataAccess;
 using bib_tracker.Model;
+using bib_tracker.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,13 @@ namespace bib_tracker.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Participant participant;
+        private ParticipantService participantService;
 
 
         public ParticipantViewModel(Participant participant)
         {
             this.participant = participant;
+            participantService = new ParticipantService();
         }
 
         public int Id 
@@ -53,6 +56,7 @@ namespace bib_tracker.ViewModel
             set
             {
                 participant.FirstName = value;
+                OnPropertyChanged("FirstName");
             }
         }
 
@@ -66,6 +70,12 @@ namespace bib_tracker.ViewModel
             {
                 participant.LastName = value;
             }
+        }
+
+        private void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+            participantService.UpdateParticipant(participant);
         }
     }
 }

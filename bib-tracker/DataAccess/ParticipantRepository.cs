@@ -15,9 +15,9 @@ namespace bib_tracker.DataAccess
             SqliteDb.AddParticipant(participant);
         }
 
-        public void Update()
+        public void Update(Participant participant)
         {
-
+            SqliteDb.UpdateParticipant(participant);
         }
 
         public void Delete()

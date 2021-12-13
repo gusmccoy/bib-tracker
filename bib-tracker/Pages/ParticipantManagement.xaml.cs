@@ -16,25 +16,24 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using bib_tracker.ViewModel;
 using bib_tracker.Services;
+using System.Collections.Specialized;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace bib_tracker
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ParticipantManagement : Page
     {
-        public ObservableCollection<ParticipantViewModel> Participants;
+        public ObservableCollection<ParticipantViewModel> Participants = new ObservableCollection<ParticipantViewModel>();
         public ParticipantService ParticipantService;
         public ParticipantManagement()
         {
             this.InitializeComponent();
-            ParticipantService = new ParticipantService();
-            Participants = new ObservableCollection<ParticipantViewModel>();
-            PopulateExistingParticipantRecords();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            ParticipantService = new ParticipantService();
+            PopulateExistingParticipantRecords();
+            Participants.CollectionChanged += this.OnCollectionChanged;
         }
 
         private void PopulateExistingParticipantRecords()
@@ -48,6 +47,12 @@ namespace bib_tracker
                     this.Participants.Add(participant);
                 }
             }
+        }
+
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+
+            throw new NotImplementedException();
         }
 
         private async void ImportParticipantsBtn_Click(object sender, RoutedEventArgs e)
