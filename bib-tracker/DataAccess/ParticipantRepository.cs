@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace bib_tracker.DataAccess
 {
@@ -31,7 +32,12 @@ namespace bib_tracker.DataAccess
 
         public List<Participant> GetAllParticipants()
         {
-            return new List<Participant>();
+            return SqliteDb.GetAllParticipants();
+        }
+
+        public void LoadParticipantFile(StorageFile file)
+        {
+            SqliteDb.ReadFileData("PARTICIPANT", file);
         }
     }
 }

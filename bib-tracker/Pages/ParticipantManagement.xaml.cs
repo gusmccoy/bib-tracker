@@ -14,7 +14,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using bib_tracker.DataAccess;
+using bib_tracker.ViewModel;
+using bib_tracker.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,18 +26,20 @@ namespace bib_tracker
     /// </summary>
     public sealed partial class ParticipantManagement : Page
     {
-        public ObservableCollection<Participant> Participants;
+        public ObservableCollection<ParticipantViewModel> Participants;
+        public ParticipantService ParticipantService;
         public ParticipantManagement()
         {
             this.InitializeComponent();
-            Participants = new ObservableCollection<Participant>();
+            ParticipantService = new ParticipantService();
+            Participants = new ObservableCollection<ParticipantViewModel>();
             PopulateExistingParticipantRecords();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void PopulateExistingParticipantRecords()
         {
-            var participants = SqliteDb.GetAllParticipants();
+            var participants = ParticipantService.GetAllParticipants();
 
             if(participants.Count != 0)
             {
@@ -58,13 +61,13 @@ namespace bib_tracker
             if (file != null)
             {
                 this.MainTextBlock.Text = "Reading in " + file.Path;
-                SqliteDb.ReadFileData("PARTICIPANT", file);
-
+                ParticipantService.LoadFile(file);
                 Participants.Clear();
 
-                foreach (Participant runner in SqliteDb.GetAllParticipants())
+                foreach (ParticipantViewModel runner in ParticipantService.GetAllParticipants())
+                {
                     Participants.Add(runner);
-
+                }
             }
             else
             {

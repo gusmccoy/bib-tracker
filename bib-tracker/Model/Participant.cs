@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bib_tracker.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,20 @@ namespace bib_tracker.Model
 {
     public class Participant
     {
+
+        public Participant()
+        {
+
+        }
+
+        public Participant(ParticipantViewModel participantView)
+        {
+            Id = participantView.Id;
+            Bib = participantView.Bib;
+            FirstName = participantView.FirstName;
+            LastName = participantView.LastName;
+        }
+
         public int Id { get; set; }
 
         public int Bib { get; set; }

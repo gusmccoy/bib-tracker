@@ -14,7 +14,7 @@
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="145,126,0,0" Text="HI ALL TEST TEST" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <controls:DataGrid
                     Name="ParticipantDataGrid"
-                    ItemsSource="{x:Bind Participants, Mode=OneWay}"
+                    ItemsSource="{x:Bind Participants, Mode=TwoWay}"
                     HeadersVisibility="Column"
                     AlternatingRowBackground="LightBlue"
                     AutoGenerateColumns="False" Margin="0,0,0,0"
@@ -23,7 +23,7 @@
                     CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="Bib No." Binding="{Binding Bib}"/>
-                <controls:DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                <controls:DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
                 <controls:DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
