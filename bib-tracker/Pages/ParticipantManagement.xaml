@@ -9,15 +9,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="-900,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
+
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="145,126,0,0" Text="HI ALL TEST TEST" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="0,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
         <controls:DataGrid
-                Name="ParticipantDataGrid"
-                ItemsSource="{x:Bind Participants, Mode=OneWay}"
-                HeadersVisibility="Column"
-                AlternatingRowBackground="LightBlue"
-                AutoGenerateColumns="False" Margin="0,0,0,0"
-                HorizontalAlignment="Center">
+                    Name="ParticipantDataGrid"
+                    ItemsSource="{x:Bind Participants, Mode=OneWay}"
+                    HeadersVisibility="Column"
+                    AlternatingRowBackground="LightBlue"
+                    AutoGenerateColumns="False" Margin="0,0,0,0"
+                    HorizontalAlignment="Center"
+                    CanUserSortColumns="True"
+                    CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="Bib No." Binding="{Binding Bib}"/>
                 <controls:DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>

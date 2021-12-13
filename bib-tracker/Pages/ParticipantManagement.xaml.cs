@@ -30,7 +30,21 @@ namespace bib_tracker
         {
             this.InitializeComponent();
             Participants = new ObservableCollection<Participant>();
+            PopulateExistingParticipantRecords();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+        }
+
+        private void PopulateExistingParticipantRecords()
+        {
+            var participants = SqliteDb.GetAllParticipants();
+
+            if(participants.Count != 0)
+            {
+                foreach (var participant in participants)
+                {
+                    this.Participants.Add(participant);
+                }
+            }
         }
 
         private async void ImportParticipantsBtn_Click(object sender, RoutedEventArgs e)
@@ -45,6 +59,8 @@ namespace bib_tracker
             {
                 this.MainTextBlock.Text = "Reading in " + file.Path;
                 SqliteDb.ReadFileData("PARTICIPANT", file);
+
+                Participants.Clear();
 
                 foreach (Participant runner in SqliteDb.GetAllParticipants())
                     Participants.Add(runner);
