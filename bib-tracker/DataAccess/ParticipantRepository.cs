@@ -20,14 +20,14 @@ namespace bib_tracker.DataAccess
             SqliteDb.UpdateParticipant(participant);
         }
 
-        public void Delete()
+        public void Delete(int participantId)
         {
-
+            SqliteDb.DeleteParticipant(participantId);
         }
 
-        public Participant GetParticipantById()
+        public Participant GetParticipantById(int participantId)
         {
-            return new Participant();
+            return SqliteDb.GetParticipantById(participantId);
         }
 
         public List<Participant> GetAllParticipants()

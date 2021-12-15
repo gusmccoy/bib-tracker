@@ -140,6 +140,7 @@
       <DependentUpon>StationManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\ParticipantService.cs" />
+    <Compile Include="Services\StationService.cs" />
     <Compile Include="ViewModel\CheckInViewModel.cs" />
     <Compile Include="ViewModel\ParticipantViewModel.cs" />
     <Compile Include="ViewModel\StationViewModel.cs" />

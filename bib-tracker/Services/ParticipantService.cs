@@ -32,6 +32,11 @@ namespace bib_tracker.Services
             return participantViews;
         }
 
+        public ParticipantViewModel GetParticipantById(int id)
+        {
+            return new ParticipantViewModel(participantRepository.GetParticipantById(id));
+        }
+
         public void AddParticipant(ParticipantViewModel participantView)
         {
             participantRepository.Add(new Participant(participantView));

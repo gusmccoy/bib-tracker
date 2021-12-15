@@ -33,6 +33,7 @@ namespace bib_tracker.DataAccess
                     "(id INTEGER PRIMARY KEY, " +
                     "participantId INTEGER, " +
                     "stationId INTEGER, " +
+                    "timestamp DATETIME, " +
                     "FOREIGN KEY(participantId) REFERENCES participant(id), " +
                     "FOREIGN KEY(stationId) REFERENCES station(id));";
 
@@ -207,22 +208,22 @@ namespace bib_tracker.DataAccess
             }
         }
 
-        //        public static void DeleteNote(long noteId)
-        //        {
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+        public static void DeleteParticipant(long participantId)
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand();
-        //                cmd.Connection = conn;
-        //                cmd.CommandText = "DELETE FROM note WHERE noteId = @Id";
-        //                cmd.Parameters.AddWithValue("@Id", noteId);
-        //                cmd.ExecuteReader();
+                SqliteCommand cmd = new SqliteCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM participant WHERE id = @Id";
+                cmd.Parameters.AddWithValue("@Id", participantId);
+                cmd.ExecuteReader();
 
-        //                conn.Close();
-        //            }
-        //        }
+                conn.Close();
+            }
+        }
 
         public static long AddStation(Station station)
         {
@@ -277,67 +278,67 @@ namespace bib_tracker.DataAccess
             return station;
         }
 
-        //        public static List<Folder> GetAllFolders()
-        //        {
-        //            var folders = new List<Folder>();
+        public static List<Station> GetAllStations()
+        {
+            var stations = new List<Station>();
 
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand("SELECT folderId, folderName FROM folder", conn);
-        //                SqliteDataReader query = cmd.ExecuteReader();
-        //                while (query.Read())
-        //                {
-        //                    folders.Add(new Folder
-        //                    {
-        //                        Id = query.GetInt32(0),
-        //                        Name = query.GetString(1)
-        //                    });
-        //                }
-        //                conn.Close();
-        //            }
+                SqliteCommand cmd = new SqliteCommand("SELECT id, name FROM folder", conn);
+                SqliteDataReader query = cmd.ExecuteReader();
+                while (query.Read())
+                {
+                    stations.Add(new Station
+                    {
+                        Id = query.GetInt32(0),
+                        Name = query.GetString(1)
+                    });
+                }
+                conn.Close();
+            }
 
-        //            return folders;
-        //        }
+            return stations;
+        }
 
-        //        public static void UpdateFolder(Folder folder)
-        //        {
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+        public static void UpdateStation(Station station)
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand();
-        //                cmd.Connection = conn;
+                SqliteCommand cmd = new SqliteCommand();
+                cmd.Connection = conn;
 
-        //                cmd.CommandText = "UPDATE folder SET folderName = @Name WHERE folderId = @Id";
-        //                cmd.Parameters.AddWithValue("@Name", folder.Name);
-        //                cmd.Parameters.AddWithValue("@Id", folder.Id);
+                cmd.CommandText = "UPDATE station SET name = @Name WHERE id = @Id";
+                cmd.Parameters.AddWithValue("@Name", station.Name);
+                cmd.Parameters.AddWithValue("@Id", station.Id);
 
-        //                cmd.ExecuteReader();
+                cmd.ExecuteReader();
 
-        //                conn.Close();
-        //            }
-        //        }
+                conn.Close();
+            }
+        }
 
-        //        public static void DeleteFolder(long folderId)
-        //        {
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+        public static void DeleteStation(long stationId)
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand();
-        //                cmd.Connection = conn;
-        //                cmd.CommandText = "DELETE FROM folder WHERE folderId = @Id";
-        //                cmd.Parameters.AddWithValue("@Id", folderId);
-        //                cmd.ExecuteReader();
+                SqliteCommand cmd = new SqliteCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM station WHERE id = @Id";
+                cmd.Parameters.AddWithValue("@Id", stationId);
+                cmd.ExecuteReader();
 
-        //                conn.Close();
-        //            }
-        //        }
+                conn.Close();
+            }
+        }
 
         //        public static List<int> GetNoteIdsByFolderId(int id)
         //        {
@@ -397,9 +398,10 @@ namespace bib_tracker.DataAccess
                 if (GetCheckinByStationAndParticipant(participantCheckIn.StationId, participantCheckIn.ParticipantId).ParticipantId == 0)
                 {
                     // NULL tells Sqlite to use autoincrement value. Parameterized query prevents SQL injection attacks
-                    cmd.CommandText = "INSERT INTO participant_check_in (participantId, stationId) VALUES (@ParticipantId, @StationId); SELECT last_insert_rowid()";
+                    cmd.CommandText = "INSERT INTO participant_check_in (participantId, stationId, timestamp) VALUES (@ParticipantId, @StationId, @Timestamp); SELECT last_insert_rowid()";
                     cmd.Parameters.AddWithValue("@ParticipantId", participantCheckIn.ParticipantId);
                     cmd.Parameters.AddWithValue("@StationId", participantCheckIn.StationId);
+                    cmd.Parameters.AddWithValue("@Timestamp", DateTime.Parse(participantCheckIn.Timestamp));
 
                     // Get ID that was automatically assigned
                     newId = (long)cmd.ExecuteScalar();
@@ -438,39 +440,38 @@ namespace bib_tracker.DataAccess
             return participantCheckIn;
         }
 
-        //        public static void DeleteNoteFolderAssociationByFolderId(long folderId)
-        //        {
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+        public static void DeleteParticipantCheckInByParticipantId(long id)
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand();
-        //                cmd.Connection = conn;
-        //                cmd.CommandText = "DELETE FROM note_folder_association WHERE folderId = @Id";
-        //                cmd.Parameters.AddWithValue("@Id", folderId);
-        //                cmd.ExecuteReader();
+                SqliteCommand cmd = new SqliteCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM participant_check_in WHERE participant = @Id";
+                cmd.Parameters.AddWithValue("@Id", id);
+                cmd.ExecuteReader();
 
-        //                conn.Close();
-        //            }
-        //        }
+                conn.Close();
+            }
+        }
 
-        //        public static void DeleteNoteFolderAssociationByNoteId(long noteId)
-        //        {
-        //            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
-        //            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
-        //            {
-        //                conn.Open();
+        public static void DeleteParticipantCheckInByStationId(long id)
+        {
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
 
-        //                SqliteCommand cmd = new SqliteCommand();
-        //                cmd.Connection = conn;
-        //                cmd.CommandText = "DELETE FROM note_folder_association WHERE noteId = @Id";
-        //                cmd.Parameters.AddWithValue("@Id", noteId);
-        //                cmd.ExecuteReader();
+                SqliteCommand cmd = new SqliteCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM participant_check_in WHERE stationId = @Id";
+                cmd.Parameters.AddWithValue("@Id", id);
+                cmd.ExecuteReader();
 
-        //                conn.Close();
-        //            }
-        //        }
-        //    }
+                conn.Close();
+            }
+        }
     }
 }

@@ -16,9 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using bib_tracker.ViewModel;
 using bib_tracker.Services;
-using System.Collections.Specialized;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace bib_tracker
 {
@@ -33,7 +31,6 @@ namespace bib_tracker
 
             ParticipantService = new ParticipantService();
             PopulateExistingParticipantRecords();
-            Participants.CollectionChanged += this.OnCollectionChanged;
         }
 
         private void PopulateExistingParticipantRecords()
@@ -47,12 +44,6 @@ namespace bib_tracker
                     this.Participants.Add(participant);
                 }
             }
-        }
-
-        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-
-            throw new NotImplementedException();
         }
 
         private async void ImportParticipantsBtn_Click(object sender, RoutedEventArgs e)
