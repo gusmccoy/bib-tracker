@@ -4,33 +4,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace bib_tracker.DataAccess
 {
     class StationRepository
     {
-        public void Add()
+        public void Add(Station newStation)
         {
+            SqliteDb.AddStation(newStation);
         }
 
-        public void Update()
+        public void Update(Station updatedStation)
         {
-
+            SqliteDb.UpdateStation(updatedStation);
         }
 
-        public void Delete()
+        public void Delete(int stationId)
         {
-
+            SqliteDb.DeleteStation(stationId);
         }
 
-        public Station GetStationById()
+        public Station GetStationById(int stationId)
         {
-            return new Station();
+            return SqliteDb.GetStationById(stationId);
         }
 
         public List<Station> GetAllStations()
         {
-            return new List<Station>();
+            return SqliteDb.GetAllStations();
+        }
+
+        public void LoadStationsFile(StorageFile file)
+        {
+            SqliteDb.ReadFileData("STATION", file);
         }
 
     }

@@ -236,7 +236,7 @@ namespace bib_tracker.DataAccess
                 cmd.Connection = conn;
                 long newId = 0;
 
-                if (GetStationByName(station.Name).Name == null)
+                if (GetStationById(station.Id).Name == null)
                 {
 
                     // NULL tells Sqlite to use autoincrement value. Parameterized query prevents SQL injection attacks
@@ -253,7 +253,7 @@ namespace bib_tracker.DataAccess
             }
         }
 
-        public static Station GetStationByName(string name)
+        public static Station GetStationById(long stationId)
         {
             var station = new Station();
 
@@ -262,8 +262,8 @@ namespace bib_tracker.DataAccess
             {
                 conn.Open();
 
-                SqliteCommand cmd = new SqliteCommand("SELECT id, name FROM participant WHERE name = @name", conn);
-                cmd.Parameters.AddWithValue("@name", name);
+                SqliteCommand cmd = new SqliteCommand("SELECT id, name FROM station WHERE id = @id", conn);
+                cmd.Parameters.AddWithValue("@id", stationId);
                 SqliteDataReader query = cmd.ExecuteReader();
                 while (query.Read())
                 {
