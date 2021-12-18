@@ -122,10 +122,10 @@
     <Compile Include="Pages\CheckInManagement.xaml.cs">
       <DependentUpon>CheckInManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess\ParticipantRepository.cs" />
-    <Compile Include="DataAccess\ParticipantCheckInRepository.cs" />
+    <Compile Include="Repository\ParticipantRepository.cs" />
+    <Compile Include="Repository\ParticipantCheckInRepository.cs" />
     <Compile Include="DataAccess\SqliteDb.cs" />
-    <Compile Include="DataAccess\StationRepository.cs" />
+    <Compile Include="Repository\StationRepository.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
