@@ -13,8 +13,8 @@ namespace bib_tracker.ViewModel
     public class ParticipantViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private Participant participant;
-        private ParticipantService participantService;
+        private Participant participant = new Participant();
+        private ParticipantService participantService = new ParticipantService();
 
 
         public ParticipantViewModel(Participant participant)
@@ -32,6 +32,7 @@ namespace bib_tracker.ViewModel
             set 
             {
                 participant.Id = value;
+                OnPropertyChanged("Id");
             }
         }
 
@@ -44,6 +45,7 @@ namespace bib_tracker.ViewModel
             set
             {
                 participant.Bib = value;
+                OnPropertyChanged("Bib");
             }
         }
 
@@ -69,6 +71,7 @@ namespace bib_tracker.ViewModel
             set
             {
                 participant.LastName = value;
+                OnPropertyChanged("LastName");
             }
         }
 

@@ -32,7 +32,7 @@ namespace bib_tracker.DataAccess
 
         public List<ParticipantCheckIn> GetAllCheckInsByParticipantId(int participantId)
         {
-            return SqliteDb.GetCheckinByParticipantId(participantId);
+            return SqliteDb.GetCheckinsByParticipantId(participantId);
         }
 
         public List<ParticipantCheckIn> GetAllCheckInsByStationId(int stationId)

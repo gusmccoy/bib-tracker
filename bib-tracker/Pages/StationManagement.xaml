@@ -5,11 +5,27 @@
     xmlns:local="using:bib_tracker"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="ImportStationsBtn" Content="Import Stations" Margin="0,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportStationsBtn_Click"/>
+        <controls:DataGrid
+                    Name="ParticipantDataGrid"
+                    ItemsSource="{x:Bind Participants, Mode=TwoWay}"
+                    HeadersVisibility="Column"
+                    AlternatingRowBackground="LightBlue"
+                    AutoGenerateColumns="False" Margin="0,0,0,0"
+                    HorizontalAlignment="Center"
+                    CanUserSortColumns="True"
+                    CanUserResizeColumns="True">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Bib No." Binding="{Binding Bib}"/>
+                <controls:DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
+                <controls:DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
     </Grid>
 </Page>

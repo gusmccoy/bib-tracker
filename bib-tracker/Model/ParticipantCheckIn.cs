@@ -14,7 +14,7 @@ namespace bib_tracker.Model
 
         public int StationId { get; set; }
 
-        public string Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bib_tracker.Model
 {
-    class Station
+    public class Station
     {
         public int Id { get; set; }
         public string Name { get; set; }
