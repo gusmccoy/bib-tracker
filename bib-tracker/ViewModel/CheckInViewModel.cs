@@ -21,6 +21,17 @@ namespace bib_tracker.ViewModel
             participantCheckInService = new ParticipantCheckInService();
         }
 
+        public CheckInViewModel(int stationId, int bibNum, DateTime timestamp)
+        {
+            checkIn = new ParticipantCheckIn()
+            {
+                StationId = stationId,
+                ParticipantId = bibNum,
+                Timestamp = timestamp,
+            };
+
+        }
+
         public int Id
         {
             get

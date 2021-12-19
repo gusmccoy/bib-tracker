@@ -17,7 +17,7 @@
                     HeadersVisibility="Column"
                     AlternatingRowBackground="LightBlue"
                     AutoGenerateColumns="False" Margin="0,0,0,0"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Right"
                     CanUserSortColumns="True"
                     CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
@@ -26,6 +26,8 @@
                 <controls:DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
+        <TextBox  Header="Enter Bib Numbers:" Name="BibInput" PlaceholderText="Bib Number" HorizontalAlignment="Left" Margin="124,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"
+                 KeyDown="TextBox_KeyDown"/>
     </Grid>
 </Page>
 

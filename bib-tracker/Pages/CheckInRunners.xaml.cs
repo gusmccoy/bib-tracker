@@ -31,13 +31,6 @@ namespace bib_tracker.Pages
         {
             this.InitializeComponent();
             ParticipantCheckInService = new ParticipantCheckInService();
-            ParticipantCheckIn checkIn1 = new ParticipantCheckIn();
-            checkIn1.Id = 1;
-            checkIn1.ParticipantId = 1;
-            checkIn1.StationId = 1;
-            checkIn1.Timestamp = DateTime.Now;
-            CheckInViewModel checkIn = new CheckInViewModel(checkIn1);
-            ParticipantCheckInService.Add(checkIn);
             this.PopulateExistingCheckInRecordsByStationName();
         }
 
@@ -51,6 +44,19 @@ namespace bib_tracker.Pages
                 {
                     this.CheckIns.Add(checkIn);
                 }
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                TextBox textBox = sender as TextBox;
+                string input = textBox.Text.Trim();
+                int bib = Int32.Parse(input);
+                ParticipantCheckInService.Add(new CheckInViewModel(1, bib, DateTime.Now));
+                CheckIns.Add(new CheckInViewModel(1, bib, DateTime.Now));
+                this.BibInput.Text = "";
             }
         }
     }

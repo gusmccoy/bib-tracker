@@ -9,8 +9,6 @@ namespace bib_tracker.Model
 {
     public class ParticipantCheckIn
     {
-        private ParticipantCheckIn checkIn;
-
         public ParticipantCheckIn(CheckInViewModel checkIn)
         {
             Id = checkIn.Id;
