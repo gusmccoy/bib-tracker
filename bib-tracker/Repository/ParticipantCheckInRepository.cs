@@ -25,9 +25,14 @@ namespace bib_tracker.DataAccess
             
         }
 
-        public ParticipantCheckIn GetCheckInById(int checkInId)
+        //public ParticipantCheckIn GetCheckInById(int checkInId)
+        //{
+        //    return new ParticipantCheckIn();
+        //}
+
+        public List<ParticipantCheckIn> GetAllCheckIns()
         {
-            return new ParticipantCheckIn();
+            return SqliteDb.GetAllParticipantsCheckIns();
         }
 
         public List<ParticipantCheckIn> GetAllCheckInsByParticipantId(int participantId)
@@ -38,6 +43,11 @@ namespace bib_tracker.DataAccess
         public List<ParticipantCheckIn> GetAllCheckInsByStationId(int stationId)
         {
             return SqliteDb.GetCheckinsByStationId(stationId);
+        }
+
+        public void ReadCheckInFile(StorageFile file)
+        {
+            SqliteDb.ReadFileData("CHECKIN", file);
         }
     }
 }

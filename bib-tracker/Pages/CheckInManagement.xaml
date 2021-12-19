@@ -6,11 +6,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="ImportCheckInBtn" Content="Import Check-Ins" Margin="0,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportCheckInsBtn_Click"/>
-
+        <controls:DataGrid
+                    Name="ParticipantDataGrid"
+                    ItemsSource="{x:Bind CheckIns, Mode=TwoWay}"
+                    HeadersVisibility="Column"
+                    AlternatingRowBackground="LightBlue"
+                    AutoGenerateColumns="False" Margin="0,0,0,0"
+                    HorizontalAlignment="Center"
+                    CanUserSortColumns="True"
+                    CanUserResizeColumns="True">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Station Id" Binding="{Binding StationId}"/>
+                <controls:DataGridTextColumn Header="Participant Bib" Binding="{Binding ParticipantId}" />
+                <controls:DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
     </Grid>
 </Page>

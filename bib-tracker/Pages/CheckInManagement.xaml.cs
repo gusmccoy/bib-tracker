@@ -1,6 +1,8 @@
-﻿using bib_tracker.DataAccess;
+﻿using bib_tracker.Services;
+using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,14 +20,29 @@ using Windows.UI.Xaml.Navigation;
 
 namespace bib_tracker
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class CheckInManagement : Page
     {
+        public ObservableCollection<CheckInViewModel> CheckIns = new ObservableCollection<CheckInViewModel>();
+        public ParticipantCheckInService ParticipantCheckInService;
         public CheckInManagement()
         {
             this.InitializeComponent();
+            ParticipantCheckInService = new ParticipantCheckInService();
+            this.PopulateExistingCheckInRecords();
+        }
+
+        private void PopulateExistingCheckInRecords()
+        {
+            var checkIns = ParticipantCheckInService.GetAllParticipantCheckIns();
+
+            if (checkIns.Count != 0)
+            {
+                foreach (var checkIn in checkIns)
+                {
+                    this.CheckIns.Add(checkIn);
+                }
+            }
         }
 
         private async void ImportCheckInsBtn_Click(object sender, RoutedEventArgs e)
@@ -39,7 +56,7 @@ namespace bib_tracker
             if (file != null)
             {
                 this.MainTextBlock.Text = "Reading in " + file.Path;
-                SqliteDb.ReadFileData("CHECKIN", file);
+                ParticipantCheckInService.ReadCheckInFile(file);
             }
             else
             {

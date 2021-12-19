@@ -340,6 +340,32 @@ namespace bib_tracker.DataAccess
             }
         }
 
+        public static List<ParticipantCheckIn> GetAllParticipantsCheckIns()
+        {
+            var participantCheckIns = new List<ParticipantCheckIn>();
+
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
+
+                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId, timestamp FROM participant_check_in", conn);
+                SqliteDataReader query = cmd.ExecuteReader();
+                while (query.Read())
+                {
+                    participantCheckIns.Add(new ParticipantCheckIn
+                    {
+                        Id = query.GetInt32(0),
+                        ParticipantId = query.GetInt32(1),
+                        StationId = query.GetInt32(2),
+                        Timestamp = query.GetDateTime(3)
+                    });
+                }
+                conn.Close();
+            }
+            return participantCheckIns;
+        }
+
         public static long AddParticipantCheckIn(ParticipantCheckIn participantCheckIn)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
@@ -377,7 +403,7 @@ namespace bib_tracker.DataAccess
             {
                 conn.Open();
 
-                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId FROM participant_check_in WHERE stationId = @StationId" +
+                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId, timestamp FROM participant_check_in WHERE stationId = @StationId" +
                     "AND stationId = @StationId", conn);
                 cmd.Parameters.AddWithValue("@StationId", stationName);
                 SqliteDataReader query = cmd.ExecuteReader();
@@ -405,7 +431,7 @@ namespace bib_tracker.DataAccess
             {
                 conn.Open();
 
-                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId FROM participant_check_in WHERE participantId = @ParticipantId" +
+                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId, timestamp FROM participant_check_in WHERE participantId = @ParticipantId" +
                     "AND stationId = @StationId", conn);
                 cmd.Parameters.AddWithValue("@ParticipantId", participantId);
                 SqliteDataReader query = cmd.ExecuteReader();
@@ -432,7 +458,7 @@ namespace bib_tracker.DataAccess
             {
                 conn.Open();
 
-                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId FROM participant_check_in WHERE participantId = @ParticipantId AND @stationId = StationId" +
+                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId, timestamp FROM participant_check_in WHERE participantId = @ParticipantId AND @stationId = StationId" +
                     "AND stationId = @StationId", conn);
                 cmd.Parameters.AddWithValue("@ParticipantId", participantId);
                 cmd.Parameters.AddWithValue("@StationId", stationId);

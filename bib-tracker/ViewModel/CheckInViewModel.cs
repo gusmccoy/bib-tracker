@@ -9,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace bib_tracker.ViewModel
 {
-    class CheckInViewModel : INotifyPropertyChanged
+    public class CheckInViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         ParticipantCheckIn checkIn;
         ParticipantCheckInService participantCheckInService;
+
+        public CheckInViewModel(ParticipantCheckIn checkIn)
+        {
+            this.checkIn = checkIn;
+            participantCheckInService = new ParticipantCheckInService();
+        }
 
         public int Id
         {
