@@ -125,6 +125,9 @@
     <Compile Include="Pages\CheckInManagement.xaml.cs">
       <DependentUpon>CheckInManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CheckInRunners.xaml.cs">
+      <DependentUpon>CheckInRunners.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Repository\ParticipantRepository.cs" />
     <Compile Include="Repository\ParticipantCheckInRepository.cs" />
     <Compile Include="DataAccess\SqliteDb.cs" />
@@ -174,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\CheckInManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CheckInRunners.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

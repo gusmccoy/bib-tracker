@@ -377,8 +377,8 @@ namespace bib_tracker.DataAccess
                 SqliteCommand cmd = new SqliteCommand();
                 cmd.Connection = conn;
 
-                if (GetCheckinByStationAndParticipant(participantCheckIn.StationId, participantCheckIn.ParticipantId).ParticipantId == 0)
-                {
+                //if (GetCheckinByStationAndParticipant(participantCheckIn.StationId, participantCheckIn.ParticipantId).ParticipantId == 0)
+                //{
                     // NULL tells Sqlite to use autoincrement value. Parameterized query prevents SQL injection attacks
                     cmd.CommandText = "INSERT INTO participant_check_in (participantId, stationId, timestamp) VALUES (@ParticipantId, @StationId, @Timestamp); SELECT last_insert_rowid()";
                     cmd.Parameters.AddWithValue("@ParticipantId", participantCheckIn.ParticipantId);
@@ -387,7 +387,7 @@ namespace bib_tracker.DataAccess
 
                     // Get ID that was automatically assigned
                     newId = (long)cmd.ExecuteScalar();
-                }
+                //}
                 conn.Close();
 
                 return newId;
@@ -403,8 +403,7 @@ namespace bib_tracker.DataAccess
             {
                 conn.Open();
 
-                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId, timestamp FROM participant_check_in WHERE stationId = @StationId" +
-                    "AND stationId = @StationId", conn);
+                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId, timestamp FROM participant_check_in WHERE stationId = @StationId", conn);
                 cmd.Parameters.AddWithValue("@StationId", stationName);
                 SqliteDataReader query = cmd.ExecuteReader();
                 while (query.Read())

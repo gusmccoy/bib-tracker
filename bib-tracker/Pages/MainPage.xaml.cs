@@ -30,7 +30,7 @@ namespace bib_tracker
 
         private void ParticipantManagementBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(ParticipantManagement));
+            this.Frame.Navigate(typeof(CheckInRunners));
         }
 
         private void StationManagementBtn_Click(object sender, RoutedEventArgs e)

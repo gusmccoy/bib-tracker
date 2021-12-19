@@ -19,6 +19,11 @@ namespace bib_tracker.Services
             participantCheckInRepository = new ParticipantCheckInRepository();
         }
 
+        public void Add(CheckInViewModel checkInViewModel)
+        {
+            participantCheckInRepository.Add(new ParticipantCheckIn(checkInViewModel));
+        }
+
         public void Update(ParticipantCheckIn checkIn)
         {
             participantCheckInRepository.Update(checkIn);
@@ -30,6 +35,19 @@ namespace bib_tracker.Services
             var checkIns = participantCheckInRepository.GetAllCheckIns();
 
             foreach(var checkIn in checkIns)
+            {
+                checkinViewModels.Add(new CheckInViewModel(checkIn));
+            }
+
+            return checkinViewModels;
+        }
+
+        public List<CheckInViewModel> GetAllParticipantCheckInsByStation(int stationId)
+        {
+            var checkinViewModels = new List<CheckInViewModel>();
+            var checkIns = participantCheckInRepository.GetAllCheckInsByStationId(stationId);
+
+            foreach (var checkIn in checkIns)
             {
                 checkinViewModels.Add(new CheckInViewModel(checkIn));
             }
