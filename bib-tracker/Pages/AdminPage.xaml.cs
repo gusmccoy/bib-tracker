@@ -12,18 +12,12 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using bib_tracker.DataAccess;
-using bib_tracker.Model;
-using System.Collections.ObjectModel;
-using bib_tracker.Pages;
 
-
-namespace bib_tracker
+namespace bib_tracker.Pages
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class AdminPage : Page
     {
-        public ObservableCollection<Participant> Participants;
-        public MainPage()
+        public AdminPage()
         {
             this.InitializeComponent();
         }
@@ -41,11 +35,6 @@ namespace bib_tracker
         private void CheckInManagementBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CheckInManagement));
-        }
-
-        private void AdminPageBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(AdminPage));
         }
     }
 }

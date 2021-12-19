@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="bib_tracker.App">
       <uap:VisualElements
-        DisplayName="bib-tracker"
+        DisplayName="TREK TRAK"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="bib-tracker"
