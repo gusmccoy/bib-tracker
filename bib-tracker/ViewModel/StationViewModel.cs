@@ -15,6 +15,12 @@ namespace bib_tracker.ViewModel
         private Station station;
         private StationService stationService;
 
+        public StationViewModel(Station station)
+        {
+            this.station = station;
+            stationService = new StationService();
+        }
+
         public int Id
         {
             get

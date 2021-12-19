@@ -14,9 +14,32 @@ namespace bib_tracker.Services
     {
         private StationRepository stationRepository;
 
+        public StationService()
+        {
+            stationRepository = new StationRepository();
+        }
+
         public void UpdateStation(Station station)
         {
             stationRepository.Update(station);
+        }
+
+        public List<StationViewModel> GetAllStations()
+        {
+            List<StationViewModel> stationViewModels = new List<StationViewModel>();
+            var stations = stationRepository.GetAllStations();
+
+            foreach(var station in stations)
+            {
+                stationViewModels.Add(new StationViewModel(station));
+            }
+
+            return stationViewModels;
+        }
+
+        public void ReadStationFile(StorageFile file)
+        {
+            stationRepository.LoadStationsFile(file);
         }
     }
 }

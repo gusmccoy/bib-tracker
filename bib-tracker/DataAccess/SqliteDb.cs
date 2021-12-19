@@ -287,7 +287,7 @@ namespace bib_tracker.DataAccess
             {
                 conn.Open();
 
-                SqliteCommand cmd = new SqliteCommand("SELECT id, name FROM folder", conn);
+                SqliteCommand cmd = new SqliteCommand("SELECT id, name FROM station", conn);
                 SqliteDataReader query = cmd.ExecuteReader();
                 while (query.Read())
                 {

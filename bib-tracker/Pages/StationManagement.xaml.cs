@@ -1,6 +1,8 @@
-﻿using bib_tracker.DataAccess;
+﻿using bib_tracker.Services;
+using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,14 +20,30 @@ using Windows.UI.Xaml.Navigation;
 
 namespace bib_tracker
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class StationManagement : Page
     {
+        public ObservableCollection<StationViewModel> Stations = new ObservableCollection<StationViewModel>();
+        public StationService StationService;
         public StationManagement()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            StationService = new StationService();
+            PopulateExistingStationRecords();
+        }
+
+        private void PopulateExistingStationRecords()
+        {
+            var stations = StationService.GetAllStations();
+
+            if (stations.Count != 0)
+            {
+                foreach (var station in stations)
+                {
+                    this.Stations.Add(station);
+                }
+            }
         }
 
         private async void ImportStationsBtn_Click(object sender, RoutedEventArgs e)
@@ -39,7 +57,7 @@ namespace bib_tracker
             if (file != null)
             {
                 this.MainTextBlock.Text = "Reading in " + file.Path;
-                SqliteDb.ReadFileData("STATION", file);
+                StationService.ReadStationFile(file);
             }
             else
             {

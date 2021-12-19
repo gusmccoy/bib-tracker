@@ -14,7 +14,7 @@
         <Button x:Name="ImportStationsBtn" Content="Import Stations" Margin="0,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportStationsBtn_Click"/>
         <controls:DataGrid
                     Name="ParticipantDataGrid"
-                    ItemsSource="{x:Bind Participants, Mode=TwoWay}"
+                    ItemsSource="{x:Bind Stations, Mode=TwoWay}"
                     HeadersVisibility="Column"
                     AlternatingRowBackground="LightBlue"
                     AutoGenerateColumns="False" Margin="0,0,0,0"
@@ -22,9 +22,8 @@
                     CanUserSortColumns="True"
                     CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Bib No." Binding="{Binding Bib}"/>
-                <controls:DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
-                <controls:DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <controls:DataGridTextColumn Header="Station Name" Binding="{Binding Name}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>
