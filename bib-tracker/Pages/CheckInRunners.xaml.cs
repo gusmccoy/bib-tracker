@@ -79,5 +79,25 @@ namespace bib_tracker.Pages
                 this.BibInput.Text = "";
             }
         }
+
+        private async void ExportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.SuggestedStartLocation =
+                Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+            savePicker.SuggestedFileName = "ExportedParticipantData";
+
+            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+            {
+                this.MainTextBlock.Text = "Exporting data to " + file.Path;
+                ParticipantCheckInService.WriteCurrentData(file);
+            }
+            else
+            {
+                this.MainTextBlock.Text = "Operation cancelled.";
+            }
+        }
     }
 }

@@ -59,5 +59,10 @@ namespace bib_tracker.Services
         {
             participantCheckInRepository.ReadCheckInFile(file);
         }
+
+        public void WriteCurrentData(StorageFile file)
+        {
+            participantCheckInRepository.ExportCurrentRecords(file);
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace bib_tracker.DataAccess
             }
         }
 
-        public async static void ReadFileData(string fileType, StorageFile file)
+        public static void ReadFileData(string fileType, StorageFile file)
         {
             switch (fileType)
             {
@@ -56,6 +56,61 @@ namespace bib_tracker.DataAccess
                     ImportCheckinData(file);
                     break;
             }
+        }
+
+        public static void WriteDataBaseRecord(string fileType, StorageFile file)
+        {
+            switch (fileType)
+            {
+                case "PARTICIPANT":
+                    ExportParticipantData(file);
+                    break;
+                case "STATION":
+                    ExportStationData(file);
+                    break;
+                case "CHECKIN":
+                    ExportCheckinData(file);
+                    break;
+            }
+        }
+
+        private static async void ExportParticipantData(StorageFile file)
+        {
+            var participants = GetAllParticipants();
+
+            List<string> dataLines = new List<string>();
+            foreach (var participant in participants)
+            {
+                string s = participant.Bib.ToString() + '\t' + participant.FirstName + '\t' + participant.LastName;
+                dataLines.Add(s);
+            }
+            await FileIO.WriteLinesAsync(file, dataLines);
+        }
+
+        private async static void ExportStationData(StorageFile file)
+        {
+            var stations = GetAllStations();
+
+            List<string> dataLines = new List<string>();
+            foreach (var station in stations)
+            {
+                string s = station.Id.ToString() + '\t' + station.Name;
+                dataLines.Add(s);
+            }
+            await FileIO.WriteLinesAsync(file, dataLines);
+        }
+
+        private static async void ExportCheckinData(StorageFile file)
+        {
+            var checkIns = GetAllParticipantsCheckIns();
+             
+            List<string> dataLines = new List<string>();
+            foreach (var checkIn in checkIns)
+            {
+                string s = checkIn.ParticipantId.ToString() + '\t' + checkIn.StationId.ToString() + '\t' + checkIn.Timestamp.ToString();
+                dataLines.Add(s);
+            }
+            await FileIO.WriteLinesAsync(file, dataLines);
         }
 
         private async static void ImportParticipantData(StorageFile file)
@@ -97,7 +152,8 @@ namespace bib_tracker.DataAccess
                 AddParticipantCheckIn(new ParticipantCheckIn()
                 {
                     ParticipantId = Int32.Parse(line[0]),
-                    StationId = Int32.Parse(line[1])
+                    StationId = Int32.Parse(line[1]),
+                    Timestamp = DateTime.Parse(line[2])
                 });
             }
         }

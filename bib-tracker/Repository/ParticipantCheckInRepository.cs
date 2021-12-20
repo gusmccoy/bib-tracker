@@ -49,5 +49,10 @@ namespace bib_tracker.DataAccess
         {
             SqliteDb.ReadFileData("CHECKIN", file);
         }
+
+        public void ExportCurrentRecords(StorageFile file)
+        {
+            SqliteDb.WriteDataBaseRecord("CHECKIN", file);
+        }
     }
 }

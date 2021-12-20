@@ -51,5 +51,10 @@ namespace bib_tracker.Services
         {
             participantRepository.LoadParticipantFile(file);
         }
+
+        public void WriteCurrentData(StorageFile file)
+        {
+            participantRepository.ExportCurrentRecords(file);
+        }
     }
 }

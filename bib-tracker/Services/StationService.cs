@@ -41,5 +41,10 @@ namespace bib_tracker.Services
         {
             stationRepository.LoadStationsFile(file);
         }
+
+        public void WriteCurrentData(StorageFile file)
+        {
+            stationRepository.ExportCurrentRecords(file);
+        }
     }
 }
