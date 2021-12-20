@@ -28,19 +28,9 @@ namespace bib_tracker
             this.InitializeComponent();
         }
 
-        private void ParticipantManagementBtn_Click(object sender, RoutedEventArgs e)
+        private void CheckInRunnersBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CheckInRunners));
-        }
-
-        private void StationManagementBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(StationManagement));
-        }
-
-        private void CheckInManagementBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(CheckInManagement));
         }
 
         private void AdminPageBtn_Click(object sender, RoutedEventArgs e)
