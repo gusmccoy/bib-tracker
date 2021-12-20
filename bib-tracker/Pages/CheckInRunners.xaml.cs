@@ -86,7 +86,7 @@ namespace bib_tracker.Pages
             savePicker.SuggestedStartLocation =
                 Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
             savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-            savePicker.SuggestedFileName = "ExportedParticipantData";
+            savePicker.SuggestedFileName = "ExportedStationCheckInData";
 
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
             if (file != null)
