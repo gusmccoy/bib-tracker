@@ -17,7 +17,6 @@ namespace bib_tracker.Model
 
         public Participant(ParticipantViewModel participantView)
         {
-            Id = participantView.Id;
             Bib = participantView.Bib;
             FirstName = participantView.FirstName;
             LastName = participantView.LastName;

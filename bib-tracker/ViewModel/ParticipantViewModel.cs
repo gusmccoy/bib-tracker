@@ -23,19 +23,6 @@ namespace bib_tracker.ViewModel
             participantService = new ParticipantService();
         }
 
-        public int Id 
-        {
-            get 
-            {
-                return participant.Id;
-            }
-            set 
-            {
-                participant.Id = value;
-                OnPropertyChanged("Id");
-            }
-        }
-
         public int Bib
         {
             get

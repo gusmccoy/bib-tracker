@@ -32,19 +32,6 @@ namespace bib_tracker.ViewModel
 
         }
 
-        public int Id
-        {
-            get
-            {
-                return checkIn.Id;
-            }
-            set
-            {
-                checkIn.Id = value;
-                OnPropertyChanged("Id");
-            }
-        }
-
         public int ParticipantId
         {
             get
