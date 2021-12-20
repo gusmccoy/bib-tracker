@@ -33,9 +33,8 @@ namespace bib_tracker.Pages
         public CheckInRunners()
         {
             this.InitializeComponent();
-            GetStationInfo();
             ParticipantCheckInService = new ParticipantCheckInService();
-            this.PopulateExistingCheckInRecordsByStationName();
+            GetStationInfo();
         }
 
         private async void GetStationInfo()
@@ -46,6 +45,7 @@ namespace bib_tracker.Pages
             if(login.Result == SignInResult.SignInOK)
             {
                 stationId = SharedData.STATION_ID;
+                PopulateExistingCheckInRecordsByStationName();
             }
             else if(login.Result == SignInResult.SignInCancel)
             {
