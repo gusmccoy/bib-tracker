@@ -1,11 +1,7 @@
 ﻿using bib_tracker.Model;
 using bib_tracker.Services;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace bib_tracker.ViewModel
 {
@@ -26,22 +22,22 @@ namespace bib_tracker.ViewModel
             checkIn = new ParticipantCheckIn()
             {
                 StationId = stationId,
-                ParticipantId = bibNum,
+                ParticipantBib = bibNum,
                 Timestamp = timestamp,
             };
 
         }
 
-        public int ParticipantId
+        public int ParticipantBib
         {
             get
             {
-                return checkIn.ParticipantId;
+                return checkIn.ParticipantBib;
             }
             set
             {
-                checkIn.ParticipantId = value;
-                OnPropertyChanged("ParticipantId");
+                checkIn.ParticipantBib = value;
+                OnPropertyChanged("ParticipantBib");
             }
         }
 

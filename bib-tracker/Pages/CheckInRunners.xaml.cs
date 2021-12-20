@@ -1,25 +1,13 @@
 ﻿using bib_tracker.Dialog;
-using bib_tracker.Model;
 using bib_tracker.Services;
 using bib_tracker.Shared;
 using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace bib_tracker.Pages
 {
@@ -27,13 +15,16 @@ namespace bib_tracker.Pages
     public sealed partial class CheckInRunners : Page
     {
         public ObservableCollection<CheckInViewModel> CheckIns = new ObservableCollection<CheckInViewModel>();
+        public ObservableCollection<ParticipantViewModel> RemainingParticipants = new ObservableCollection<ParticipantViewModel>();
         public ParticipantCheckInService ParticipantCheckInService;
+        public ParticipantService ParticipantService;
         private int stationId;
 
         public CheckInRunners()
         {
             this.InitializeComponent();
             ParticipantCheckInService = new ParticipantCheckInService();
+            ParticipantService = new ParticipantService();
             GetStationInfo();
         }
 
@@ -46,6 +37,7 @@ namespace bib_tracker.Pages
             {
                 stationId = SharedData.STATION_ID;
                 PopulateExistingCheckInRecordsByStationName();
+                PopulateRemainingParticipants();
             }
             else if(login.Result == SignInResult.SignInCancel)
             {
@@ -67,6 +59,20 @@ namespace bib_tracker.Pages
             }
         }
 
+        private void PopulateRemainingParticipants()
+        {
+            RemainingParticipants.Clear();
+            var participants = ParticipantCheckInService.GetAllRemainingParticipantsByStationId(stationId);
+
+            if (participants.Count != 0)
+            {
+                foreach (var participant in participants)
+                {
+                    this.RemainingParticipants.Add(participant);
+                }
+            }
+        }
+
         private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -76,6 +82,13 @@ namespace bib_tracker.Pages
                 int bib = Int32.Parse(input);
                 ParticipantCheckInService.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
                 CheckIns.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
+
+                ParticipantViewModel participant = ParticipantService.GetParticipantByBibNumber(bib);
+                if(RemainingParticipants.Contains(participant))
+                {
+                    RemainingParticipants.Remove(participant);
+                }
+
                 this.BibInput.Text = "";
             }
         }

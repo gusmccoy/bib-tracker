@@ -13,14 +13,17 @@ namespace bib_tracker.Services
     public class ParticipantCheckInService
     {
         ParticipantCheckInRepository participantCheckInRepository;
+        ParticipantRepository ParticipantRepository;
 
         public ParticipantCheckInService()
         {
             participantCheckInRepository = new ParticipantCheckInRepository();
+            ParticipantRepository = new ParticipantRepository();
         }
 
         public void Add(CheckInViewModel checkInViewModel)
         {
+
             participantCheckInRepository.Add(new ParticipantCheckIn(checkInViewModel));
         }
 
@@ -54,6 +57,26 @@ namespace bib_tracker.Services
 
             return checkinViewModels;
         }
+
+        public List<ParticipantViewModel> GetAllRemainingParticipantsByStationId(int stationId)
+        {
+            var checkIns = GetAllParticipantCheckInsByStation(stationId);
+            var checkedInBibs = new List<int>();
+            foreach(CheckInViewModel checkIn in checkIns)
+            {
+                checkedInBibs.Add(checkIn.ParticipantBib);
+            }
+            var remainingParticipants = ParticipantRepository.GetRemainingParticipants(checkedInBibs);
+            List<ParticipantViewModel> participantViewModels = new List<ParticipantViewModel>();
+
+            foreach (var participant in remainingParticipants)
+            {
+                participantViewModels.Add(new ParticipantViewModel(participant));
+            }
+
+            return participantViewModels;
+        }
+
 
         public void ReadCheckInFile(StorageFile file)
         {

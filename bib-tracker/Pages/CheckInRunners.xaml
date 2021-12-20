@@ -12,7 +12,8 @@
     <Grid>
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="ExportStationCheckInBtn" Content="Export Station's Check Ins" Margin="0,545,500,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
-
+        <TextBox  Header="Enter Bib Numbers:" Name="BibInput" PlaceholderText="Bib Number" HorizontalAlignment="Left" Margin="124,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"
+                 KeyDown="TextBox_KeyDown"/>
         <controls:DataGrid
                     Name="CheckInGrid"
                     ItemsSource="{x:Bind CheckIns, Mode=TwoWay}"
@@ -24,12 +25,27 @@
                     CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="Station Id" Binding="{Binding StationId}"/>
-                <controls:DataGridTextColumn Header="Participant Bib" Binding="{Binding ParticipantId}" />
+                <controls:DataGridTextColumn Header="Participant Bib" Binding="{Binding ParticipantBib}" />
                 <controls:DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <TextBox  Header="Enter Bib Numbers:" Name="BibInput" PlaceholderText="Bib Number" HorizontalAlignment="Left" Margin="124,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"
-                 KeyDown="TextBox_KeyDown"/>
+
+        <controls:DataGrid
+            x:Name="RemaingParticipantsGrid"
+            ItemsSource="{x:Bind Mode=OneWay, Path=RemainingParticipants}"
+            HeadersVisibility="Column"
+            AlternatingRowBackground="LightCoral"
+            AutoGenerateColumns="False" Margin="0,0,0,0"
+            HorizontalAlignment="Center"
+            CanUserSortColumns="True"
+            CanUserResizeColumns="True"
+            IsReadOnly="True">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Participant Bib" Binding="{Binding Bib}"/>
+                <controls:DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
+                <controls:DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
     </Grid>
 </Page>
 

@@ -11,7 +11,7 @@ namespace bib_tracker.Model
     {
         public ParticipantCheckIn(CheckInViewModel checkIn)
         {
-            ParticipantId = checkIn.ParticipantId;
+            ParticipantBib = checkIn.ParticipantBib;
             StationId = checkIn.StationId;
             Timestamp = checkIn.Timestamp;
         }
@@ -21,7 +21,7 @@ namespace bib_tracker.Model
 
         public int Id { get; set; }
 
-        public int ParticipantId { get; set; }
+        public int ParticipantBib { get; set; }
 
         public int StationId { get; set; }
 

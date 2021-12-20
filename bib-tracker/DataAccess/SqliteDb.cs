@@ -3,6 +3,7 @@ using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Windows.Storage;
 
 namespace bib_tracker.DataAccess
@@ -20,8 +21,8 @@ namespace bib_tracker.DataAccess
                 conn.Open();
 
                 var sql = "CREATE TABLE IF NOT EXISTS participant " +
-                    "(id INTEGER PRIMARY KEY, " +
-                    "bib INTEGER, " +
+                    "(id INTEGER," +
+                    "bib INTEGER PRIMARY KEY, " +
                     "firstName NVARCHAR(20), " +
                     "lastName NVARCHAR(20));" +
 
@@ -34,7 +35,7 @@ namespace bib_tracker.DataAccess
                     "participantId INTEGER, " +
                     "stationId INTEGER, " +
                     "timestamp DATETIME, " +
-                    "FOREIGN KEY(participantId) REFERENCES participant(id), " +
+                    "FOREIGN KEY(participantId) REFERENCES participant(bib), " +
                     "FOREIGN KEY(stationId) REFERENCES station(id));";
 
                 var cmd = new SqliteCommand(sql, conn);
@@ -107,7 +108,7 @@ namespace bib_tracker.DataAccess
             List<string> dataLines = new List<string>();
             foreach (var checkIn in checkIns)
             {
-                string s = checkIn.ParticipantId.ToString() + '\t' + checkIn.StationId.ToString() + '\t' + checkIn.Timestamp.ToString();
+                string s = checkIn.ParticipantBib.ToString() + '\t' + checkIn.StationId.ToString() + '\t' + checkIn.Timestamp.ToString();
                 dataLines.Add(s);
             }
             await FileIO.WriteLinesAsync(file, dataLines);
@@ -151,7 +152,7 @@ namespace bib_tracker.DataAccess
                 string[] line = row.Split('\t');
                 AddParticipantCheckIn(new ParticipantCheckIn()
                 {
-                    ParticipantId = Int32.Parse(line[0]),
+                    ParticipantBib = Int32.Parse(line[0]),
                     StationId = Int32.Parse(line[1]),
                     Timestamp = DateTime.Parse(line[2])
                 });
@@ -185,7 +186,7 @@ namespace bib_tracker.DataAccess
             }
         }
 
-        public static Participant GetParticipantByBibNumber(int id)
+        public static Participant GetParticipantByBibNumber(int bib)
         {
             var participant = new Participant();
 
@@ -195,7 +196,7 @@ namespace bib_tracker.DataAccess
                 conn.Open();
 
                 SqliteCommand cmd = new SqliteCommand("SELECT id, bib, firstName, lastName FROM participant WHERE bib = @bib", conn);
-                cmd.Parameters.AddWithValue("@bib", id);
+                cmd.Parameters.AddWithValue("@bib", bib);
                 SqliteDataReader query = cmd.ExecuteReader();
                 while (query.Read())
                 {
@@ -211,6 +212,49 @@ namespace bib_tracker.DataAccess
             }
 
             return participant;
+        }
+
+        public static List<Participant> GetRemainingParticipantsByList(List<int> bibs)
+        {
+            var participants = new List<Participant>();
+            string bibList = "";
+
+            for(int i = 1; i <= bibs.Count; i++)
+            {
+                bibList += "@Bib" + i.ToString();
+                if (!i.Equals(bibs.Count))
+                {
+                    bibList += ',';
+                }
+            }
+
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
+
+                SqliteCommand cmd = new SqliteCommand("SELECT id, bib, firstName, lastName FROM participant WHERE bib not in (" + bibList + ")", conn);
+                int i = 1;
+                foreach (int bib in bibs)
+                {
+                    cmd.Parameters.AddWithValue("@Bib" + i.ToString(), bib.ToString());
+                    i++;
+                }
+                SqliteDataReader query = cmd.ExecuteReader();
+                while (query.Read())
+                {
+                    participants.Add(new Participant
+                    {
+                        Id = query.GetInt32(0),
+                        Bib = query.GetInt32(1),
+                        FirstName = query.GetString(2),
+                        LastName = query.GetString(3)
+                    });
+                }
+                conn.Close();
+            }
+
+            return participants;
         }
 
         public static List<Participant> GetAllParticipants()
@@ -406,7 +450,7 @@ namespace bib_tracker.DataAccess
                     participantCheckIns.Add(new ParticipantCheckIn
                     {
                         Id = query.GetInt32(0),
-                        ParticipantId = query.GetInt32(1),
+                        ParticipantBib = query.GetInt32(1),
                         StationId = query.GetInt32(2),
                         Timestamp = query.GetDateTime(3)
                     });
@@ -428,8 +472,8 @@ namespace bib_tracker.DataAccess
                 cmd.Connection = conn;
 
                 // ASSUMES DATA VALIDATION HAS ALREADY BEEN DONW \\
-                cmd.CommandText = "INSERT INTO participant_check_in (participantId, stationId, timestamp) VALUES (@ParticipantId, @StationId, @Timestamp); SELECT last_insert_rowid()";
-                cmd.Parameters.AddWithValue("@ParticipantId", participantCheckIn.ParticipantId);
+                cmd.CommandText = "INSERT INTO participant_check_in (participantId, stationId, timestamp) VALUES (@ParticipantBib, @StationId, @Timestamp); SELECT last_insert_rowid()";
+                cmd.Parameters.AddWithValue("@ParticipantBib", participantCheckIn.ParticipantBib);
                 cmd.Parameters.AddWithValue("@StationId", participantCheckIn.StationId);
                 cmd.Parameters.AddWithValue("@Timestamp", participantCheckIn.Timestamp);
 
@@ -457,7 +501,7 @@ namespace bib_tracker.DataAccess
                     participantCheckIns.Add(new ParticipantCheckIn
                     {
                         Id = query.GetInt32(0),
-                        ParticipantId = query.GetInt32(1),
+                        ParticipantBib = query.GetInt32(1),
                         StationId = query.GetInt32(2),
                         Timestamp = query.GetDateTime(3)
                     });
@@ -485,7 +529,7 @@ namespace bib_tracker.DataAccess
                     participantCheckIns.Add(new ParticipantCheckIn
                     {
                         Id = query.GetInt32(0),
-                        ParticipantId = query.GetInt32(1),
+                        ParticipantBib = query.GetInt32(1),
                         StationId = query.GetInt32(2),
                         Timestamp = query.GetDateTime(3)
                     });
@@ -513,7 +557,7 @@ namespace bib_tracker.DataAccess
                     checkIn = new ParticipantCheckIn
                     {
                         Id = query.GetInt32(0),
-                        ParticipantId = query.GetInt32(1),
+                        ParticipantBib = query.GetInt32(1),
                         StationId = query.GetInt32(2),
                         Timestamp = query.GetDateTime(3)
                     };
