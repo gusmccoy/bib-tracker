@@ -7,10 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Enter Station Number"
+    PrimaryButtonText="Sign In"
+    SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
 
     <Grid>
-        <TextBox Text="Station Id"  Margin="0,0,0,0" Width="200" Height="30"/>
+        <TextBox Name="LoginTextBox" Text="Station Id"  Margin="0,0,0,0" Height="45"/>
     </Grid>
 </ContentDialog>

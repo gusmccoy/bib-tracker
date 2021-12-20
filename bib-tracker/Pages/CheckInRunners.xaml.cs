@@ -1,5 +1,7 @@
-﻿using bib_tracker.Model;
+﻿using bib_tracker.Dialog;
+using bib_tracker.Model;
 using bib_tracker.Services;
+using bib_tracker.Shared;
 using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -26,17 +28,35 @@ namespace bib_tracker.Pages
     {
         public ObservableCollection<CheckInViewModel> CheckIns = new ObservableCollection<CheckInViewModel>();
         public ParticipantCheckInService ParticipantCheckInService;
-        private string StationName = "station1";
+        private int stationId;
+
         public CheckInRunners()
         {
             this.InitializeComponent();
+            GetStationInfo();
             ParticipantCheckInService = new ParticipantCheckInService();
             this.PopulateExistingCheckInRecordsByStationName();
         }
 
+        private async void GetStationInfo()
+        {
+            StationLogin login = new StationLogin();
+            await login.ShowAsync();
+
+            if(login.Result == SignInResult.SignInOK)
+            {
+                stationId = SharedData.STATION_ID;
+            }
+            else if(login.Result == SignInResult.SignInCancel)
+            {
+                Frame.Navigate(typeof(MainPage));
+            }
+        }
+
         private void PopulateExistingCheckInRecordsByStationName()
         {
-            var checkIns = ParticipantCheckInService.GetAllParticipantCheckInsByStation(1);
+            CheckIns.Clear();
+            var checkIns = ParticipantCheckInService.GetAllParticipantCheckInsByStation(stationId);
 
             if (checkIns.Count != 0)
             {
@@ -54,8 +74,8 @@ namespace bib_tracker.Pages
                 TextBox textBox = sender as TextBox;
                 string input = textBox.Text.Trim();
                 int bib = Int32.Parse(input);
-                ParticipantCheckInService.Add(new CheckInViewModel(1, bib, DateTime.Now));
-                CheckIns.Add(new CheckInViewModel(1, bib, DateTime.Now));
+                ParticipantCheckInService.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
+                CheckIns.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
                 this.BibInput.Text = "";
             }
         }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using bib_tracker.Services;
+using bib_tracker.Shared;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,20 +19,35 @@ using Windows.UI.Xaml.Navigation;
 
 namespace bib_tracker.Dialog
 {
+    public enum SignInResult
+    {
+        SignInOK,
+        SignInFail,
+        SignInCancel
+    }
+
     public sealed partial class StationLogin : ContentDialog
     {
+
+        public SignInResult Result { get; private set; }
+        ParticipantCheckInService checkInService;
 
         public StationLogin()
         {
             this.InitializeComponent();
+            checkInService = new ParticipantCheckInService();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            string input = LoginTextBox.Text.Trim();
+            int stationId = Int32.Parse(input);
+            SharedData.STATION_ID = stationId;
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            Result = SignInResult.SignInCancel;
         }
     }
 }
