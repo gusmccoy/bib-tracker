@@ -169,15 +169,13 @@ namespace bib_tracker.DataAccess
                 cmd.Connection = conn;
                 long newId = 0;
 
-                if (GetParticipantById(participant.Bib).FirstName == null)
+                if (GetParticipantByBibNumber(participant.Bib).FirstName == null)
                 {
-                    // NULL tells Sqlite to use autoincrement value. Parameterized query prevents SQL injection attacks
                     cmd.CommandText = "INSERT INTO participant (bib, firstName, lastName) VALUES (@Bib, @FirstName, @LastName); SELECT last_insert_rowid()";
                     cmd.Parameters.AddWithValue("@Bib", participant.Bib);
                     cmd.Parameters.AddWithValue("@FirstName", participant.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", participant.LastName);
 
-                    // Get ID that was automatically assigned
                     newId = (long)cmd.ExecuteScalar();
                 }
 
@@ -187,7 +185,7 @@ namespace bib_tracker.DataAccess
             }
         }
 
-        public static Participant GetParticipantById(int id)
+        public static Participant GetParticipantByBibNumber(int id)
         {
             var participant = new Participant();
 
@@ -294,14 +292,10 @@ namespace bib_tracker.DataAccess
 
                 if (GetStationById(station.Id).Name == null)
                 {
-
-                    // NULL tells Sqlite to use autoincrement value. Parameterized query prevents SQL injection attacks
                     cmd.CommandText = "INSERT INTO station (name) VALUES (@Name); SELECT last_insert_rowid()";
                     cmd.Parameters.AddWithValue("@Name", station.Name);
 
-                    // Get ID that was automatically assigned
                     newId = (long)cmd.ExecuteScalar();
-
                 }
                 conn.Close();
 
@@ -433,17 +427,13 @@ namespace bib_tracker.DataAccess
                 SqliteCommand cmd = new SqliteCommand();
                 cmd.Connection = conn;
 
-                //if (GetCheckinByStationAndParticipant(participantCheckIn.StationId, participantCheckIn.ParticipantId).ParticipantId == 0)
-                //{
-                    // NULL tells Sqlite to use autoincrement value. Parameterized query prevents SQL injection attacks
-                    cmd.CommandText = "INSERT INTO participant_check_in (participantId, stationId, timestamp) VALUES (@ParticipantId, @StationId, @Timestamp); SELECT last_insert_rowid()";
-                    cmd.Parameters.AddWithValue("@ParticipantId", participantCheckIn.ParticipantId);
-                    cmd.Parameters.AddWithValue("@StationId", participantCheckIn.StationId);
-                    cmd.Parameters.AddWithValue("@Timestamp", participantCheckIn.Timestamp);
+                // ASSUMES DATA VALIDATION HAS ALREADY BEEN DONW \\
+                cmd.CommandText = "INSERT INTO participant_check_in (participantId, stationId, timestamp) VALUES (@ParticipantId, @StationId, @Timestamp); SELECT last_insert_rowid()";
+                cmd.Parameters.AddWithValue("@ParticipantId", participantCheckIn.ParticipantId);
+                cmd.Parameters.AddWithValue("@StationId", participantCheckIn.StationId);
+                cmd.Parameters.AddWithValue("@Timestamp", participantCheckIn.Timestamp);
 
-                    // Get ID that was automatically assigned
-                    newId = (long)cmd.ExecuteScalar();
-                //}
+                newId = (long)cmd.ExecuteScalar();
                 conn.Close();
 
                 return newId;

@@ -25,9 +25,9 @@ namespace bib_tracker.DataAccess
             SqliteDb.DeleteParticipant(participantId);
         }
 
-        public Participant GetParticipantById(int participantId)
+        public Participant GetParticipantByBibNumber(int participantBib)
         {
-            return SqliteDb.GetParticipantById(participantId);
+            return SqliteDb.GetParticipantByBibNumber(participantBib);
         }
 
         public List<Participant> GetAllParticipants()
