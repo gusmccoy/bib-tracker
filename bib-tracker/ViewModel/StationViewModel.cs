@@ -21,16 +21,16 @@ namespace bib_tracker.ViewModel
             stationService = new StationService();
         }
 
-        public int Id
+        public int Number
         {
             get
             {
-                return station.Id;
+                return station.Number;
             }
             private set
             {
-                station.Id = value;
-                OnPropertyChanged("Id");
+                station.Number = value;
+                OnPropertyChanged("Number");
             }
         }
 

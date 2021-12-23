@@ -21,7 +21,7 @@ namespace bib_tracker.ViewModel
         {
             checkIn = new ParticipantCheckIn()
             {
-                StationId = stationId,
+                StationNumber = stationId,
                 ParticipantBib = bibNum,
                 Timestamp = timestamp,
             };
@@ -45,11 +45,11 @@ namespace bib_tracker.ViewModel
         { 
             get
             {
-                return checkIn.StationId;
+                return checkIn.StationNumber;
             }
             set
             {
-                checkIn.StationId = value;
+                checkIn.StationNumber = value;
                 OnPropertyChanged("StationId");
             }
         }

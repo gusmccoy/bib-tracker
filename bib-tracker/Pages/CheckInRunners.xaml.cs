@@ -37,7 +37,8 @@ namespace bib_tracker.Pages
             {
                 stationId = SharedData.STATION_ID;
                 PopulateExistingCheckInRecordsByStationName();
-                PopulateRemainingParticipants();
+                if(CheckIns.Count != 0)
+                    PopulateRemainingParticipants();
             }
             else if(login.Result == SignInResult.SignInCancel)
             {

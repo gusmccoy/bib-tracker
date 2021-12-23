@@ -27,7 +27,7 @@ namespace bib_tracker.DataAccess
 
         public Station GetStationById(int stationId)
         {
-            return SqliteDb.GetStationById(stationId);
+            return SqliteDb.GetStationByNumber(stationId);
         }
 
         public List<Station> GetAllStations()
