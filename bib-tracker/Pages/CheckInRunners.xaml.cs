@@ -105,21 +105,23 @@ namespace bib_tracker.Pages
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
             if (file != null)
             {
-                this.MainTextBlock.Text = "Exporting data to " + file.Path;
                 ParticipantCheckInService.WriteCurrentData(file);
-            }
-            else
-            {
-                this.MainTextBlock.Text = "Operation cancelled.";
             }
         }
 
         private void LoadBtn_Click(object sender, RoutedEventArgs e)
         {
+            CheckIns.Clear();
+            RemainingParticipants.Clear();
             var checkins = ParticipantCheckInService.GetAllParticipantCheckIns();
             foreach (CheckInViewModel checkin in checkins)
             {
                 CheckIns.Add(checkin);
+            }
+
+            foreach(ParticipantViewModel participant in ParticipantService.GetAllParticipants())
+            {
+                RemainingParticipants.Add(participant);
             }
         }
     }

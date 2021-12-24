@@ -66,6 +66,7 @@ namespace bib_tracker
 
         private void LoadBtn_Click(object sender, RoutedEventArgs e)
         {
+            Stations.Clear();
             var stations = StationService.GetAllStations();
             foreach (StationViewModel station in stations)
             {

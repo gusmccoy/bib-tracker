@@ -10,13 +10,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="ExportStationCheckInBtn" Content="Export Station's Check Ins" Margin="0,545,500,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
-        <TextBox  Header="Enter Bib Numbers:" Name="BibInput" PlaceholderText="Bib Number" HorizontalAlignment="Left" Margin="124,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"
+        <Button x:Name="ExportStationCheckInBtn" Content="Export Station's Check Ins" Margin="-900,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
+        <Button x:Name="LoadDataBtn" Content="Refresh Data" Margin="-900,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
+        <TextBox  Header="Enter Bib Numbers:" Name="BibInput" PlaceholderText="Bib Number" HorizontalAlignment="Center" Margin="-900,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"
                  KeyDown="TextBox_KeyDown"/>
         <controls:DataGrid
                     Name="CheckInGrid"
-                    ItemsSource="{x:Bind CheckIns, Mode=TwoWay}"
+                    ItemsSource="{x:Bind CheckIns, Mode=OneWay}"
                     HeadersVisibility="Column"
                     AlternatingRowBackground="LightBlue"
                     AutoGenerateColumns="False" Margin="0,0,0,0"

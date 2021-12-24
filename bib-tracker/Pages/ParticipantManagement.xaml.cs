@@ -64,6 +64,7 @@ namespace bib_tracker
 
         private void LoadBtn_Click(object sender, RoutedEventArgs e)
         {
+            Participants.Clear();
             var runners = ParticipantService.GetAllParticipants();
             foreach (ParticipantViewModel runner in runners)
             {
