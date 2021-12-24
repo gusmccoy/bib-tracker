@@ -84,13 +84,8 @@ namespace bib_tracker.Pages
                 int bib = Int32.Parse(input);
                 ParticipantCheckInService.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
                 CheckIns.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
-
-                ParticipantViewModel participant = ParticipantService.GetParticipantByBibNumber(bib);
-                if(RemainingParticipants.IndexOf(participant) != -1)
-                {
-                    RemainingParticipants.Remove(participant);
-                }
-
+                RemainingParticipants.Clear();
+                PopulateRemainingParticipants();
                 this.BibInput.Text = "";
             }
         }

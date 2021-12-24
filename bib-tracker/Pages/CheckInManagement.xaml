@@ -24,8 +24,8 @@
                     CanUserSortColumns="True"
                     CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Station Number" Binding="{Binding StationNumber}"/>
-                <controls:DataGridTextColumn Header="Participant Bib" Binding="{Binding ParticipantId}" />
+                <controls:DataGridTextColumn Header="Station Number" Binding="{Binding StationId}"/>
+                <controls:DataGridTextColumn Header="Participant Bib" Binding="{Binding ParticipantBib}" />
                 <controls:DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
