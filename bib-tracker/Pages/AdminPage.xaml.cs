@@ -1,6 +1,7 @@
 ﻿using bib_tracker.Services;
 using bib_tracker.Shared;
 using System;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -40,7 +41,7 @@ namespace bib_tracker.Pages
             this.Frame.Navigate(typeof(RaceSettings));
         }
 
-        private void ClearDatabaseBtn_Click(object sender, RoutedEventArgs e)
+        private async void ClearDatabaseBtn_Click(object sender, RoutedEventArgs e)
         {
             SharedData.STATION_ID = 0;
             SharedData.RACE_TITLE = "";
@@ -59,6 +60,8 @@ namespace bib_tracker.Pages
                 StationService.DeleteStation(station.Number);
                 ParticipantCheckInService.DeleteAllRecordsByStationNumber(station.Number);
             }
+
+            await ApplicationData.Current.ClearAsync();
         }
     }
 }

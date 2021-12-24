@@ -1,4 +1,5 @@
 ﻿using bib_tracker.DataAccess;
+using bib_tracker.Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -60,9 +62,10 @@ namespace bib_tracker
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (e.PreviousExecutionState == ApplicationExecutionState.ClosedByUser || e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    SharedData.RACE_TITLE = (string)ApplicationData.Current.LocalSettings.Values["RACE_TITLE"];
+                    SharedData.RACE_START_TIME = DateTime.Parse((string)ApplicationData.Current.LocalSettings.Values["RACE_START_TIME"]);
                 }
 
                 // Place the frame in the current Window
@@ -103,7 +106,8 @@ namespace bib_tracker
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            ApplicationData.Current.LocalSettings.Values["RACE_TITLE"] = SharedData.RACE_TITLE;
+            ApplicationData.Current.LocalSettings.Values["RACE_START_TIME"] = SharedData.RACE_START_TIME.ToString();
             deferral.Complete();
         }
 
