@@ -1,21 +1,7 @@
 ﻿using bib_tracker.Services;
 using bib_tracker.Shared;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace bib_tracker.Dialog
 {
@@ -41,8 +27,16 @@ namespace bib_tracker.Dialog
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             string input = LoginTextBox.Text.Trim();
-            int stationId = Int32.Parse(input);
-            SharedData.STATION_ID = stationId;
+            try
+            {
+                int stationId = Int32.Parse(input);
+                SharedData.STATION_ID = stationId;
+            }
+            catch (Exception e)
+            {
+                LoginTextBox.Text = "";
+            }
+
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

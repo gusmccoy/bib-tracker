@@ -5,6 +5,7 @@ using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -85,7 +86,7 @@ namespace bib_tracker.Pages
                 CheckIns.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
 
                 ParticipantViewModel participant = ParticipantService.GetParticipantByBibNumber(bib);
-                if(RemainingParticipants.Contains(participant))
+                if(RemainingParticipants.IndexOf(participant) != -1)
                 {
                     RemainingParticipants.Remove(participant);
                 }
@@ -119,7 +120,7 @@ namespace bib_tracker.Pages
                 CheckIns.Add(checkin);
             }
 
-            foreach(ParticipantViewModel participant in ParticipantService.GetAllParticipants())
+            foreach(ParticipantViewModel participant in ParticipantCheckInService.GetAllRemainingParticipantsByStationId(stationId))
             {
                 RemainingParticipants.Add(participant);
             }

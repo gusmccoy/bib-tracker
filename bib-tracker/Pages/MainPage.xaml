@@ -8,8 +8,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="ManageParticipantsBtn"  Content="Log Check-Ins"   Margin="0,545,0,0"      VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="CheckInRunnersBtn_Click"/>
-        <Button x:Name="AdminBtn"               Content="Admin Page"      Margin="600,545,0,0"    VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="AdminPageBtn_Click"/>
+        <TextBlock x:Name="RaceName" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,43,0,0" Text="Arkansas Traveler 100"></TextBlock>
+        <TextBlock x:Name="HeaderClockTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0" Text="Clock Time"></TextBlock>
+        <TextBlock x:Name="Time" FontWeight="Bold" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,200,0,0"></TextBlock>
+        <TextBlock x:Name="HeaderRaceTime" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,300,0,0" Text="Race Time"></TextBlock>
+        <TextBlock x:Name="RaceTime" FontWeight="Bold" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0"></TextBlock>
+        <Button x:Name="ManageParticipantsBtn"  Content="Log Check-Ins"   Margin="-300,545,0,0"      VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="CheckInRunnersBtn_Click"/>
+        <Button x:Name="AdminBtn"               Content="Admin Page"      Margin="300,545,0,0"    VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="AdminPageBtn_Click"/>
     </Grid>
 </Page>

@@ -119,6 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialog\ErrorDialog.xaml.cs">
+      <DependentUpon>ErrorDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialog\StationLogin.xaml.cs">
       <DependentUpon>StationLogin.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,9 @@
     </Compile>
     <Compile Include="Pages\CheckInRunners.xaml.cs">
       <DependentUpon>CheckInRunners.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RaceSettings.xaml.cs">
+      <DependentUpon>RaceSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Repository\ParticipantRepository.cs" />
     <Compile Include="Repository\ParticipantCheckInRepository.cs" />
@@ -220,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialog\ErrorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialog\StationLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,6 +251,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\ParticipantManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RaceSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
