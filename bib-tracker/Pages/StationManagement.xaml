@@ -10,10 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="ImportStationsBtn" Content="Import Stations" Margin="0,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportStationsBtn_Click"/>
-        <Button x:Name="ExportStationsBtn" Content="Export Stations" Margin="0,545,500,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
-        <Button x:Name="LoadParticipantsBtn" Content="Refresh Participants" Margin="-900,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
+        <Button x:Name="ImportStationsBtn" Content="Import Stations" Margin="-900,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportStationsBtn_Click"/>
+        <Button x:Name="ExportStationsBtn" Content="Export Stations" Margin="-900,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
+        <Button x:Name="LoadStationsBtn" Content="Refresh Stations" Margin="-900,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
 
         <controls:DataGrid
                     Name="ParticipantDataGrid"

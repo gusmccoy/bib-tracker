@@ -45,12 +45,7 @@ namespace bib_tracker
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                this.MainTextBlock.Text = "Reading in " + file.Path;
                 StationService.ReadStationFile(file);
-            }
-            else
-            {
-                this.MainTextBlock.Text = "Operation cancelled.";
             }
         }
 
@@ -65,12 +60,7 @@ namespace bib_tracker
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
             if (file != null)
             {
-                this.MainTextBlock.Text = "Exporting data to " + file.Path;
                 StationService.WriteCurrentData(file);
-            }
-            else
-            {
-                this.MainTextBlock.Text = "Operation cancelled.";
             }
         }
 

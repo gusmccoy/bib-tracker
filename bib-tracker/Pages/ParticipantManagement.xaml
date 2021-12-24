@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="-900,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
-        <Button x:Name="ExportParticipantsBtn" Content="Export Participants" Margin="0,545,500,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
+        <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="-900,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
+        <Button x:Name="ExportParticipantsBtn" Content="Export Participants" Margin="-900,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
         <Button x:Name="LoadParticipantsBtn" Content="Refresh Participants" Margin="-900,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
         
         <controls:DataGrid
