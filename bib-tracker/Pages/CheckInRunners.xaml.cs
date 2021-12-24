@@ -113,5 +113,14 @@ namespace bib_tracker.Pages
                 this.MainTextBlock.Text = "Operation cancelled.";
             }
         }
+
+        private void LoadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var checkins = ParticipantCheckInService.GetAllParticipantCheckIns();
+            foreach (CheckInViewModel checkin in checkins)
+            {
+                CheckIns.Add(checkin);
+            }
+        }
     }
 }

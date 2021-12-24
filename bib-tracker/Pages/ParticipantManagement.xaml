@@ -11,8 +11,8 @@
     <Grid>
         <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="-900,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
         <Button x:Name="ExportParticipantsBtn" Content="Export Participants" Margin="0,545,500,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
-
-        <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="145,126,0,0" Text="HI ALL TEST TEST" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="LoadParticipantsBtn" Content="Refresh Participants" Margin="-900,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
+        
         <controls:DataGrid
                     Name="ParticipantDataGrid"
                     ItemsSource="{x:Bind Participants, Mode=TwoWay}"

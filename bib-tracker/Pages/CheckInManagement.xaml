@@ -13,6 +13,7 @@
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="ImportCheckInBtn" Content="Import Check-Ins" Margin="0,545,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportCheckInsBtn_Click"/>
         <Button x:Name="ExportCheckInsBtn" Content="Export All Check Ins" Margin="0,545,500,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
+        <Button x:Name="LoadParticipantsBtn" Content="Load Participants" Margin="-900,60,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
 
         <controls:DataGrid
                     Name="CheckInGrid"
@@ -24,7 +25,7 @@
                     CanUserSortColumns="True"
                     CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Station Id" Binding="{Binding StationId}"/>
+                <controls:DataGridTextColumn Header="Station Number" Binding="{Binding StationNumber}"/>
                 <controls:DataGridTextColumn Header="Participant Bib" Binding="{Binding ParticipantId}" />
                 <controls:DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>
             </controls:DataGrid.Columns>

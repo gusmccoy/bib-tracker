@@ -22,13 +22,13 @@ namespace bib_tracker
 {
     public sealed partial class ParticipantManagement : Page
     {
-        public ObservableCollection<ParticipantViewModel> Participants = new ObservableCollection<ParticipantViewModel>();
+        public ObservableCollection<ParticipantViewModel> Participants;
         public ParticipantService ParticipantService;
         public ParticipantManagement()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
-
+            Participants = new ObservableCollection<ParticipantViewModel>();
             ParticipantService = new ParticipantService();
             PopulateExistingParticipantRecords();
         }
@@ -37,12 +37,9 @@ namespace bib_tracker
         {
             var participants = ParticipantService.GetAllParticipants();
 
-            if(participants.Count != 0)
+            foreach (var participant in participants)
             {
-                foreach (var participant in participants)
-                {
-                    this.Participants.Add(participant);
-                }
+                Participants.Add(participant);
             }
         }
 
@@ -56,18 +53,8 @@ namespace bib_tracker
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                this.MainTextBlock.Text = "Reading in " + file.Path;
                 ParticipantService.LoadFile(file);
                 Participants.Clear();
-
-                foreach (ParticipantViewModel runner in ParticipantService.GetAllParticipants())
-                {
-                    Participants.Add(runner);
-                }
-            }
-            else
-            {
-                this.MainTextBlock.Text = "Operation cancelled.";
             }
         }
 
@@ -81,13 +68,15 @@ namespace bib_tracker
 
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
             if (file != null)
-            {
-                this.MainTextBlock.Text = "Exporting data to " + file.Path;
                 ParticipantService.WriteCurrentData(file);
-            }
-            else
+        }
+
+        private void LoadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var runners = ParticipantService.GetAllParticipants();
+            foreach (ParticipantViewModel runner in runners)
             {
-                this.MainTextBlock.Text = "Operation cancelled.";
+                Participants.Add(runner);
             }
         }
     }
