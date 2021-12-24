@@ -10,8 +10,8 @@
     <Grid>
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" Margin="592,174,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="ManageParticipantsBtn"  Content="Manage Participants"   Margin="0,545,0,0"      VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="ParticipantManagementBtn_Click"/>
-        <Button x:Name="ManageRaceSettingsBtn"  Content="Race Settings"   Margin="0,400,0,0"      VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="ManageRaceSettingsBtn_Click"/>
-
+        <Button x:Name="ManageRaceSettingsBtn"  Content="Race Settings"   Margin="300,400,0,0"      VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="ManageRaceSettingsBtn_Click"/>
+        <Button x:Name="ClearDatabaseBtn"  Content="Delete All Records"   Margin="-300,400,0,0"      VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="ClearDatabaseBtn_Click"/>
         <Button x:Name="ManageStationsBtn"      Content="Manage Stations"       Margin="-600,545,0,0"   VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="StationManagementBtn_Click"/>
         <Button x:Name="ManageCheckInsBtn"      Content="Manage Check-ins"      Margin="600,545,0,0"    VerticalAlignment="Top"    HorizontalAlignment="Center" Height="50"     Click="CheckInManagementBtn_Click"/>
     </Grid>

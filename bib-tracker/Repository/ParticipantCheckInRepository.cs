@@ -20,9 +20,9 @@ namespace bib_tracker.DataAccess
             
         }
 
-        public void Delete(int checkInId)
+        public void DeleteByStationId(int stationNumber)
         {
-            
+            SqliteDb.DeleteParticipantCheckInByStationId(stationNumber);
         }
 
         //public ParticipantCheckIn GetCheckInById(int checkInId)

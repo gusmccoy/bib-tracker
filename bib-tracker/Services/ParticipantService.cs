@@ -47,6 +47,11 @@ namespace bib_tracker.Services
             participantRepository.Update(participantView);
         }
 
+        public void DeleteParticipant(int bib)
+        {
+            participantRepository.Delete(bib);
+        }
+
         public void LoadFile(StorageFile file)
         {
             participantRepository.LoadParticipantFile(file);

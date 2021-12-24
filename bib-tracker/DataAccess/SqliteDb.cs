@@ -318,7 +318,7 @@ namespace bib_tracker.DataAccess
 
                 SqliteCommand cmd = new SqliteCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "DELETE FROM participant WHERE id = @Id";
+                cmd.CommandText = "DELETE FROM participant WHERE bib = @Id";
                 cmd.Parameters.AddWithValue("@Id", participantId);
                 cmd.ExecuteReader();
 
@@ -431,7 +431,7 @@ namespace bib_tracker.DataAccess
 
                 SqliteCommand cmd = new SqliteCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "DELETE FROM station WHERE id = @Id";
+                cmd.CommandText = "DELETE FROM station WHERE number = @Id";
                 cmd.Parameters.AddWithValue("@Id", stationId);
                 cmd.ExecuteReader();
 

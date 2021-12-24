@@ -20,9 +20,15 @@ namespace bib_tracker.Pages
         {
             base.OnNavigatedFrom(e);
             SharedData.RACE_TITLE = NameInput.Text.Trim();
+            try
+            {
+                string datetime = StartTimeDatePicker.Date.ToString().Substring(0, 10) + ' ' + StartTimePicker.Time.ToString();
+                SharedData.RACE_START_TIME = DateTime.Parse(datetime);
+            }
+            catch
+            {
 
-            string datetime = StartTimeDatePicker.Date.ToString().Substring(0,10) + ' ' + StartTimePicker.Time.ToString();
-            SharedData.RACE_START_TIME = DateTime.Parse(datetime);
+            }
         }
     }
 }

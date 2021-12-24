@@ -24,6 +24,11 @@ namespace bib_tracker.Services
             stationRepository.Update(station);
         }
 
+        public void DeleteStation(int stationNumber)
+        {
+            stationRepository.Delete(stationNumber);
+        }
+
         public List<StationViewModel> GetAllStations()
         {
             List<StationViewModel> stationViewModels = new List<StationViewModel>();

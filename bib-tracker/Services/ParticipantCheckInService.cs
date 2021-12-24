@@ -32,6 +32,11 @@ namespace bib_tracker.Services
             participantCheckInRepository.Update(checkIn);
         }
 
+        public void DeleteAllRecordsByStationNumber(int stationNumber)
+        {
+            participantCheckInRepository.DeleteByStationId(stationNumber);
+        }
+
         public List<CheckInViewModel> GetAllParticipantCheckIns()
         {
             var checkinViewModels = new List<CheckInViewModel>();
