@@ -9,6 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock x:Name="PageHeader" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Text="Race Settings"></TextBlock>
         <TextBox  Header="Enter Event Name" Name="NameInput" PlaceholderText="Race Name" HorizontalAlignment="Center" Margin="0,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"/>
         <DatePicker x:Name="StartTimeDatePicker" Header="Pick a Date" Margin="-300,500,0,0"  VerticalAlignment="Top" HorizontalAlignment="Center"/>
         <TimePicker x:Name="StartTimePicker" Header="Pick a Time" Margin="300,500,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>

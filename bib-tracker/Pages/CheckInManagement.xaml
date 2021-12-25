@@ -10,16 +10,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="ImportCheckInBtn" Content="Import Check-Ins" Margin="-900,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportCheckInsBtn_Click"/>
-        <Button x:Name="ExportCheckInsBtn" Content="Export All Check Ins" Margin="-900,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
-        <Button x:Name="LoadCheckinsBtn" Content="Refresh Check-Ins" Margin="-900,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
+        <TextBlock x:Name="PageHeader" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Text="Check-In Management"></TextBlock>
+
+        <Button x:Name="ImportCheckInBtn" Content="Import Check-Ins" Margin="-900,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ImportCheckInsBtn_Click"/>
+        <Button x:Name="ExportCheckInsBtn" Content="Export All Check Ins" Margin="-900,150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
+        <Button x:Name="LoadCheckinsBtn" Content="Refresh Check-Ins" Margin="-900,-150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
 
         <controls:DataGrid
                     Name="CheckInGrid"
                     ItemsSource="{x:Bind CheckIns, Mode=TwoWay}"
                     HeadersVisibility="Column"
                     AlternatingRowBackground="LightBlue"
-                    AutoGenerateColumns="False" Margin="0,0,0,0"
+                    AutoGenerateColumns="False" Margin="0,129,0,51"
                     HorizontalAlignment="Center"
                     CanUserSortColumns="True"
                     CanUserResizeColumns="True">

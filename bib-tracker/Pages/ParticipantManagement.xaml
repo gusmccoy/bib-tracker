@@ -9,16 +9,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="-900,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
-        <Button x:Name="ExportParticipantsBtn" Content="Export Participants" Margin="-900,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
-        <Button x:Name="LoadParticipantsBtn" Content="Refresh Participants" Margin="-900,100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
-        
+        <TextBlock x:Name="PageHeader" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Text="Participant Management"></TextBlock>
+        <Button x:Name="ImportParticipantsBtn" Content="Import Participants" Margin="-900,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ImportParticipantsBtn_Click"/>
+        <Button x:Name="ExportParticipantsBtn" Content="Export Participants" Margin="-900,150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
+        <Button x:Name="LoadParticipantsBtn" Content="Refresh Participants" Margin="-900,-150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
+
         <controls:DataGrid
                     Name="ParticipantDataGrid"
                     ItemsSource="{x:Bind Participants, Mode=TwoWay}"
                     HeadersVisibility="Column"
                     AlternatingRowBackground="LightBlue"
-                    AutoGenerateColumns="False" Margin="0,0,0,0"
+                    AutoGenerateColumns="False" Margin="0,129,0,51"
                     HorizontalAlignment="Center"
                     CanUserSortColumns="True"
                     CanUserResizeColumns="True">

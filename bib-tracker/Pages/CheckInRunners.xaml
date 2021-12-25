@@ -10,16 +10,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="ExportStationCheckInBtn" Content="Export Station's Check Ins" Margin="-900,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
-        <Button x:Name="LoadDataBtn" Content="Refresh Data" Margin="-900,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
-        <TextBox  Header="Enter Bib Numbers:" Name="BibInput" PlaceholderText="Bib Number" HorizontalAlignment="Center" Margin="-900,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159"
+        <TextBlock x:Name="PageHeader" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Text="Station Check Ins"></TextBlock>
+        <Button x:Name="ExportStationCheckInBtn" Content="Export Check Ins" Margin="-900,150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
+        <Button x:Name="LoadDataBtn" Content="Refresh Columns" Margin="-900,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
+        <TextBox  Header="Enter Bib Numbers:" Name="BibInput" PlaceholderText="Bib Number" HorizontalAlignment="Center" Margin="-900,-150,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="159"
                  KeyDown="TextBox_KeyDown"/>
         <controls:DataGrid
                     Name="CheckInGrid"
                     ItemsSource="{x:Bind CheckIns, Mode=OneWay}"
                     HeadersVisibility="Column"
                     AlternatingRowBackground="LightBlue"
-                    AutoGenerateColumns="False" Margin="0,0,0,0"
+                    AutoGenerateColumns="False" Margin="0,129,0,51"
                     HorizontalAlignment="Right"
                     CanUserSortColumns="True"
                     CanUserResizeColumns="True">
@@ -35,7 +36,7 @@
             ItemsSource="{x:Bind Mode=OneWay, Path=RemainingParticipants}"
             HeadersVisibility="Column"
             AlternatingRowBackground="LightCoral"
-            AutoGenerateColumns="False" Margin="0,0,0,0"
+            AutoGenerateColumns="False" Margin="0,129,0,51"
             HorizontalAlignment="Center"
             CanUserSortColumns="True"
             CanUserResizeColumns="True"
