@@ -149,7 +149,7 @@ namespace bib_tracker.DataAccess
         private async static void ImportCheckinData(StorageFile file)
         {
             string contents = await Windows.Storage.FileIO.ReadTextAsync(file);
-            string[] lines = contents.Split('\r');
+            string[] lines = contents.Split('\n');
             foreach (string row in lines)
             {
                 string[] line = row.Split('\t');
@@ -542,6 +542,35 @@ namespace bib_tracker.DataAccess
                 conn.Close();
             }
             return participantCheckIns;
+        }
+
+        public static ParticipantCheckIn GetCheckinsByParticipantIdAndTimestamp(int participantId, DateTime timestamp)
+        {
+            var participantCheckIn = new ParticipantCheckIn();
+
+            string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DB_FILENAME);
+            using (SqliteConnection conn = new SqliteConnection($"Filename={dbpath}"))
+            {
+                conn.Open();
+
+                SqliteCommand cmd = new SqliteCommand("SELECT id, participantId, stationId, timestamp FROM participant_check_in WHERE participantId = @ParticipantId AND timestamp = @Timestamp"
+                    , conn);
+                cmd.Parameters.AddWithValue("@ParticipantId", participantId);
+                cmd.Parameters.AddWithValue("@Timestamp", timestamp);
+                SqliteDataReader query = cmd.ExecuteReader();
+                while (query.Read())
+                {
+                    participantCheckIn = new ParticipantCheckIn
+                    {
+                        Id = query.GetInt32(0),
+                        ParticipantBib = query.GetInt32(1),
+                        StationNumber = query.GetInt32(2),
+                        Timestamp = query.GetDateTime(3)
+                    };
+                }
+                conn.Close();
+            }
+            return participantCheckIn;
         }
 
         public static ParticipantCheckIn GetCheckinByStationAndParticipant(int stationId, int participantId)
