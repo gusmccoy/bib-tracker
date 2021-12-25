@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="f38890d0-1610-40de-a02d-e21425db0cc5"
-    Publisher="CN=Gus McCoy"
-    Version="1.0.0.0" />
+    Name="17892GusMcCoy.TREKTRAK"
+    Publisher="CN=72F1E190-8883-4C36-B3CE-85D18767A80B"
+    Version="1.0.3.0" />
 
-  <mp:PhoneIdentity PhoneProductId="f38890d0-1610-40de-a02d-e21425db0cc5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="aa134f54-d6d0-427f-bffc-87a7626a252c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>bib-tracker</DisplayName>
+    <DisplayName>TREK TRAK</DisplayName>
     <PublisherDisplayName>Gus McCoy</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -41,6 +41,7 @@
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
         <uap:SplashScreen Image="Assets\SplashScreen.png"/>
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
     </Application>
   </Applications>
