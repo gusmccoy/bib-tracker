@@ -27,7 +27,23 @@ namespace bib_tracker.Pages
             }
             catch
             {
-
+                try
+                {
+                    string datetime = StartTimeDatePicker.Date.ToString().Substring(0, 9) + ' ' + StartTimePicker.Time.ToString();
+                    SharedData.RACE_START_TIME = DateTime.Parse(datetime);
+                }
+                catch
+                {
+                    try
+                    {
+                        string datetime = StartTimeDatePicker.Date.ToString().Substring(0, 8) + ' ' + StartTimePicker.Time.ToString();
+                        SharedData.RACE_START_TIME = DateTime.Parse(datetime);
+                    }
+                    catch
+                    {
+                        SharedData.RACE_START_TIME = DateTime.Parse("01/01/2022 01:00:00 AM");
+                    }
+                }
             }
         }
     }

@@ -19,11 +19,16 @@ namespace bib_tracker
             this.InitializeComponent();
             DataContext = this;
             if (SharedData.RACE_TITLE.Trim() != "")
-                RaceName.Text = SharedData.RACE_TITLE.Trim();
-            else
-                RaceName.Text = "Set Race Name in Admin Page";
-            if (SharedData.RACE_START_TIME != DateTime.Parse("01/01/0001 01:00:00 AM"))
             {
+                RaceName.Text = SharedData.RACE_TITLE.Trim();
+            }
+            else
+            {
+                RaceName.Text = "Set Race Name in Admin Page";
+            }
+            if (SharedData.RACE_START_TIME != DateTime.Parse("01/01/2022 01:00:00 AM"))
+            {
+                startTime = SharedData.RACE_START_TIME;
                 RaceTimer.Tick += RaceTime_Tick;
                 RaceTimer.Interval = new TimeSpan(0, 0, 0, 0, 5);
                 RaceTimer.Start();
