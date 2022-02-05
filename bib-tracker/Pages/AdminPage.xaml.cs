@@ -41,27 +41,25 @@ namespace bib_tracker.Pages
             this.Frame.Navigate(typeof(RaceSettings));
         }
 
-        private async void ClearDatabaseBtn_Click(object sender, RoutedEventArgs e)
+        private void ClearDatabaseBtn_Click(object sender, RoutedEventArgs e)
         {
             SharedData.STATION_ID = 0;
             SharedData.RACE_TITLE = "";
-            SharedData.RACE_START_TIME = DateTime.Parse("01/01/0001 01:00:00 AM");
+            SharedData.RACE_START_TIME = DateTime.Parse("01/01/2022 01:00:00 AM");
 
             var participants = ParticipantService.GetAllParticipants();
             var stations = StationService.GetAllStations();
 
-            foreach(var runner in participants)
+            foreach (var station in stations)
+            {
+                ParticipantCheckInService.DeleteAllRecordsByStationNumber(station.Number);
+                StationService.DeleteStation(station.Number);
+            }
+
+            foreach (var runner in participants)
             {
                 ParticipantService.DeleteParticipant(runner.Bib);
             }
-
-            foreach(var station in stations)
-            {
-                StationService.DeleteStation(station.Number);
-                ParticipantCheckInService.DeleteAllRecordsByStationNumber(station.Number);
-            }
-
-            await ApplicationData.Current.ClearAsync();
         }
     }
 }
