@@ -17,6 +17,9 @@ namespace bib_tracker
         {
             this.InitializeComponent();
             ParticipantCheckInService = new ParticipantCheckInService();
+            CheckIns.Clear();
+            CheckIns = new ObservableCollection<CheckInViewModel>();
+            this.InfoTextBlock.Text = "";
             this.PopulateExistingCheckInRecords();
         }
 

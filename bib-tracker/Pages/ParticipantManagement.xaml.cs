@@ -18,8 +18,9 @@ namespace bib_tracker
         public ParticipantManagement()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
             Participants = new ObservableCollection<ParticipantViewModel>();
+            Participants.Clear();
+            this.InfoTextBlock.Text = "";
             ParticipantService = new ParticipantService();
             PopulateExistingParticipantRecords();
         }

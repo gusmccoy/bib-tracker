@@ -11,7 +11,7 @@
 
     <Grid>
         <TextBlock x:Name="PageHeader" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Text="Check-In Management"></TextBlock>
-        <TextBlock x:Name="InfoTextBlock" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,75,0,0" Text="Error Message" Height="222" Width="360"></TextBlock>
+        <TextBlock x:Name="InfoTextBlock" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,75,0,0" Text="" Height="222" Width="360"></TextBlock>
 
         <Button x:Name="ImportCheckInBtn" Content="Import Check-Ins" Margin="-900,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ImportCheckInsBtn_Click"/>
         <Button x:Name="ExportCheckInsBtn" Content="Export All Check Ins" Margin="-900,150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>

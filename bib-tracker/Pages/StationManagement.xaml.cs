@@ -17,8 +17,10 @@ namespace bib_tracker
         public StationManagement()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
             StationService = new StationService();
+            Stations = new ObservableCollection<StationViewModel>();
+            Stations.Clear();
+            this.InfoTextBlock.Text = "";
             PopulateExistingStationRecords();
         }
 
