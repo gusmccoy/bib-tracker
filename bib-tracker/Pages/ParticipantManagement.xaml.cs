@@ -44,7 +44,7 @@ namespace bib_tracker
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                ParticipantService.LoadFile(file);
+                this.InfoTextBlock.Text = await ParticipantService.ReadParticipantFile(file);
                 Participants.Clear();
             }
         }

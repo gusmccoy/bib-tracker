@@ -40,11 +40,6 @@ namespace bib_tracker.DataAccess
             return SqliteDb.GetRemainingParticipantsByList(bibs);
         }
 
-        public void LoadParticipantFile(StorageFile file)
-        {
-            SqliteDb.ReadFileData("PARTICIPANT", file);
-        }
-
         public void ExportCurrentRecords(StorageFile file)
         {
             SqliteDb.WriteDataBaseRecord("PARTICIPANT", file);

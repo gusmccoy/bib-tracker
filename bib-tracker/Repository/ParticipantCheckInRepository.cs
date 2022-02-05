@@ -1,5 +1,6 @@
 ﻿using bib_tracker.Model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace bib_tracker.DataAccess
@@ -34,11 +35,6 @@ namespace bib_tracker.DataAccess
         public List<ParticipantCheckIn> GetAllCheckInsByStationId(int stationId)
         {
             return SqliteDb.GetCheckinsByStationId(stationId);
-        }
-
-        public void ReadCheckInFile(StorageFile file)
-        {
-            SqliteDb.ReadFileData("CHECKIN", file);
         }
 
         public void ExportCurrentRecords(StorageFile file)

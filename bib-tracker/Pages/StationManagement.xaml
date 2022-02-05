@@ -11,6 +11,8 @@
 
     <Grid>
         <TextBlock x:Name="PageHeader" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Text="Station Management"></TextBlock>
+        <TextBlock x:Name="InfoTextBlock" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,75,0,0" Text="Error Message" Height="222" Width="360"></TextBlock>
+
         <Button x:Name="ImportStationsBtn" Content="Import Stations" Margin="-900,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ImportStationsBtn_Click"/>
         <Button x:Name="ExportStationsBtn" Content="Export Stations" Margin="-900,150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
         <Button x:Name="LoadStationsBtn" Content="Refresh Stations" Margin="-900,-150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>

@@ -35,11 +35,6 @@ namespace bib_tracker.DataAccess
             return SqliteDb.GetAllStations();
         }
 
-        public void LoadStationsFile(StorageFile file)
-        {
-            SqliteDb.ReadFileData("STATION", file);
-        }
-
         public void ExportCurrentRecords(StorageFile file)
         {
             SqliteDb.WriteDataBaseRecord("STATION", file);

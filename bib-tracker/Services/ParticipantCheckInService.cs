@@ -1,7 +1,9 @@
 ﻿using bib_tracker.DataAccess;
 using bib_tracker.Model;
+using bib_tracker.Shared;
 using bib_tracker.ViewModel;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace bib_tracker.Services
@@ -10,11 +12,13 @@ namespace bib_tracker.Services
     {
         ParticipantCheckInRepository participantCheckInRepository;
         ParticipantRepository ParticipantRepository;
+        FileService fileService;
 
         public ParticipantCheckInService()
         {
             participantCheckInRepository = new ParticipantCheckInRepository();
             ParticipantRepository = new ParticipantRepository();
+            fileService = new FileService();
         }
 
         public void Add(CheckInViewModel checkInViewModel)
@@ -79,9 +83,9 @@ namespace bib_tracker.Services
         }
 
 
-        public void ReadCheckInFile(StorageFile file)
+        public async Task<string> ReadCheckInFile(StorageFile file)
         {
-            participantCheckInRepository.ReadCheckInFile(file);
+            return await fileService.InsertInfoIntoDatabase(Constants.CHECKIN, file);
         }
 
         public void WriteCurrentData(StorageFile file)

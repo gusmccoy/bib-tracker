@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace bib_tracker.DataAccess
@@ -36,27 +37,9 @@ namespace bib_tracker.DataAccess
                     "participantId INTEGER, " +
                     "stationId INTEGER, " +
                     "timestamp DATETIME)";
-                    //"FOREIGN KEY(participantId) REFERENCES participant(bib), " +
-                    //"FOREIGN KEY(stationId) REFERENCES station(number));";
 
                 var cmd = new SqliteCommand(sql, conn);
                 cmd.ExecuteReader();
-            }
-        }
-
-        public static void ReadFileData(string fileType, StorageFile file)
-        {
-            switch (fileType)
-            {
-                case "PARTICIPANT":
-                    ImportParticipantData(file);
-                    break;
-                case "STATION":
-                    ImportStationData(file);
-                    break;
-                case "CHECKIN":
-                    ImportCheckinData(file);
-                    break;
             }
         }
 
@@ -113,53 +96,6 @@ namespace bib_tracker.DataAccess
                 dataLines.Add(s);
             }
             await FileIO.WriteLinesAsync(file, dataLines);
-        }
-
-        private async static void ImportParticipantData(StorageFile file)
-        {
-            string contents = await Windows.Storage.FileIO.ReadTextAsync(file);
-            string[] lines = contents.Split('\r');
-            foreach (string row in lines)
-            {
-                string[] line = row.Split('\t');
-                AddParticipant(new Participant()
-                {
-                    Bib = Int32.Parse(line[0]),
-                    FirstName = line[1],
-                    LastName = line[2]
-                });
-            }
-        }
-
-        private async static void ImportStationData(StorageFile file)
-        {
-            string contents = await Windows.Storage.FileIO.ReadTextAsync(file);
-            string[] lines = contents.Split('\r');
-            foreach (string row in lines)
-            {
-                string[] line = row.Split('\t');
-                AddStation(new Station()
-                {
-                    Number = Int32.Parse(line[0]),
-                    Name = line[1]
-                });
-            }
-        }
-
-        private async static void ImportCheckinData(StorageFile file)
-        {
-            string contents = await Windows.Storage.FileIO.ReadTextAsync(file);
-            string[] lines = contents.Split('\n');
-            foreach (string row in lines)
-            {
-                string[] line = row.Split('\t');
-                AddParticipantCheckIn(new ParticipantCheckIn()
-                {
-                    ParticipantBib = Int32.Parse(line[0]),
-                    StationNumber = Int32.Parse(line[1]),
-                    Timestamp = DateTime.Parse(line[2])
-                });
-            }
         }
 
         public static long AddParticipant(Participant participant)

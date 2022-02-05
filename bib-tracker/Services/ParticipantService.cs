@@ -1,5 +1,6 @@
 ﻿using bib_tracker.DataAccess;
 using bib_tracker.Model;
+using bib_tracker.Shared;
 using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace bib_tracker.Services
     public class ParticipantService
     {
         private ParticipantRepository participantRepository;
+        private FileService fileService;
 
         public ParticipantService()
         {
             participantRepository = new ParticipantRepository();
+            fileService = new FileService();
         }
 
         public List<ParticipantViewModel> GetAllParticipants()
@@ -52,14 +55,14 @@ namespace bib_tracker.Services
             participantRepository.Delete(bib);
         }
 
-        public void LoadFile(StorageFile file)
-        {
-            participantRepository.LoadParticipantFile(file);
-        }
-
         public void WriteCurrentData(StorageFile file)
         {
             participantRepository.ExportCurrentRecords(file);
+        }
+
+        public async Task<string> ReadParticipantFile(StorageFile file)
+        {
+            return await fileService.InsertInfoIntoDatabase(Constants.PARTICIPANT, file);
         }
     }
 }

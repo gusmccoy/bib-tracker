@@ -1,5 +1,6 @@
 ﻿using bib_tracker.DataAccess;
 using bib_tracker.Model;
+using bib_tracker.Shared;
 using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace bib_tracker.Services
     public class StationService
     {
         private StationRepository stationRepository;
+        private FileService fileService;
 
         public StationService()
         {
             stationRepository = new StationRepository();
+            fileService = new FileService();
         }
 
         public void UpdateStation(Station station)
@@ -42,14 +45,14 @@ namespace bib_tracker.Services
             return stationViewModels;
         }
 
-        public void ReadStationFile(StorageFile file)
-        {
-            stationRepository.LoadStationsFile(file);
-        }
-
         public void WriteCurrentData(StorageFile file)
         {
             stationRepository.ExportCurrentRecords(file);
+        }
+
+        public async Task<string> ReadStationFile(StorageFile file)
+        {
+            return await fileService.InsertInfoIntoDatabase(Constants.STATION, file);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace bib_tracker
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                ParticipantCheckInService.ReadCheckInFile(file);
+                this.InfoTextBlock.Text = await ParticipantCheckInService.ReadCheckInFile(file);
             }
         }
 
