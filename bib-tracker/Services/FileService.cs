@@ -17,45 +17,49 @@ namespace bib_tracker.Services
         {
             string response = Constants.FILE_INPUT_ALL_GOOD;
             string contents = await FileIO.ReadTextAsync(file);
+            contents = contents.Trim(new Char[] { '\r' });
             string[] lines = contents.Split('\n');
             int errorCount = 0;
             foreach (string row in lines)
             {
-                try
+                if (row.Trim().Length > 0)
                 {
-                    string[] line = row.Split('\t');
-
-                    switch (filetype)
+                    try
                     {
-                        case Constants.PARTICIPANT:
-                            SqliteDb.AddParticipant(new Participant()
-                            {
-                                Bib = Int32.Parse(line[0]),
-                                FirstName = line[1],
-                                LastName = line[2]
-                            });
-                            break;
-                        case Constants.STATION:
-                            SqliteDb.AddStation(new Station()
-                            {
-                                Number = Int32.Parse(line[0]),
-                                Name = line[1]
-                            });
-                            break;
-                        case Constants.CHECKIN:
-                            SqliteDb.AddParticipantCheckIn(new ParticipantCheckIn()
-                            {
-                                ParticipantBib = int.Parse(line[0]),
-                                StationNumber = int.Parse(line[1]),
-                                Timestamp = DateTime.Parse(line[2])
-                            });
-                            break;
+                        string[] line = row.Split('\t');
+
+                        switch (filetype)
+                        {
+                            case Constants.PARTICIPANT:
+                                SqliteDb.AddParticipant(new Participant()
+                                {
+                                    Bib = Int32.Parse(line[0]),
+                                    FirstName = line[1].Trim(),
+                                    LastName = line[2].Trim()
+                                });
+                                break;
+                            case Constants.STATION:
+                                SqliteDb.AddStation(new Station()
+                                {
+                                    Number = Int32.Parse(line[0]),
+                                    Name = line[1].Trim()
+                                });
+                                break;
+                            case Constants.CHECKIN:
+                                SqliteDb.AddParticipantCheckIn(new ParticipantCheckIn()
+                                {
+                                    ParticipantBib = int.Parse(line[0]),
+                                    StationNumber = int.Parse(line[1]),
+                                    Timestamp = DateTime.Parse(line[2].Trim())
+                                });
+                                break;
+                        }
                     }
-                }
-                catch (FormatException e)
-                {
-                    response = Constants.FILE_INPUT_PARTIAL;
-                    errorCount++;
+                    catch (FormatException e)
+                    {
+                        response = Constants.FILE_INPUT_PARTIAL;
+                        errorCount++;
+                    }
                 }
             }
 
