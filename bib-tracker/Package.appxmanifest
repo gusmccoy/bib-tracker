@@ -9,7 +9,7 @@
   <Identity
     Name="17892GusMcCoy.TREKTRAK"
     Publisher="CN=72F1E190-8883-4C36-B3CE-85D18767A80B"
-    Version="1.0.3.0" />
+    Version="1.0.10.0" />
 
   <mp:PhoneIdentity PhoneProductId="aa134f54-d6d0-427f-bffc-87a7626a252c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
