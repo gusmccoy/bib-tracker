@@ -125,6 +125,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialog\ManualAdd.xaml.cs">
+      <DependentUpon>ManualAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\Constants.cs" />
     <Compile Include="Dialog\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
@@ -243,6 +246,10 @@
     <Page Include="Dialog\ErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialog\ManualAdd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialog\StationLogin.xaml">
       <SubType>Designer</SubType>

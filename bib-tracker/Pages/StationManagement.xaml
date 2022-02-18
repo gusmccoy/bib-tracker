@@ -16,6 +16,7 @@
         <Button x:Name="ImportStationsBtn" Content="Import Stations" Margin="-900,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ImportStationsBtn_Click"/>
         <Button x:Name="ExportStationsBtn" Content="Export Stations" Margin="-900,150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="ExportBtn_Click"/>
         <Button x:Name="LoadStationsBtn" Content="Refresh Stations" Margin="-900,-150,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="LoadBtn_Click"/>
+        <Button x:Name="AddManualStation" Content="Manually Add Station" Margin="-900,300,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Click="AddManualStation_Click"/>
 
         <controls:DataGrid
                     Name="ParticipantDataGrid"

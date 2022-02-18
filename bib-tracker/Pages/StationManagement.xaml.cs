@@ -1,8 +1,11 @@
-﻿using bib_tracker.Services;
+﻿using bib_tracker.Dialog;
+using bib_tracker.Services;
+using bib_tracker.Shared;
 using bib_tracker.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -73,6 +76,20 @@ namespace bib_tracker
             foreach (StationViewModel station in stations)
             {
                 Stations.Add(station);
+            }
+        }
+
+        private async Task AddManualStation_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            ManualAdd addStationDialog = new ManualAdd();
+            await addStationDialog.ShowAsync();
+
+            if (addStationDialog.Result == SignInResult.SignInOK)
+            {
+               // stationId = SharedData.STATION_ID;
+               // PopulateExistingCheckInRecordsByStationName();
+               // if (CheckIns.Count != 0)
+               //     PopulateRemainingParticipants();
             }
         }
     }
