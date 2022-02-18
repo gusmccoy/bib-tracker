@@ -82,6 +82,15 @@ namespace bib_tracker.Pages
                 TextBox textBox = sender as TextBox;
                 string input = textBox.Text.Trim();
                 int bib = Int32.Parse(input);
+                if(ParticipantService.GetParticipantByBibNumber(bib).Bib == 0)
+                {
+                    ParticipantService.AddParticipant(new ParticipantViewModel()
+                    {
+                        Bib = bib,
+                        FirstName = "NA",
+                        LastName = "NA"
+                    });
+                }
                 ParticipantCheckInService.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
                 CheckIns.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
                 RemainingParticipants.Clear();
