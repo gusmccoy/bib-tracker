@@ -33,20 +33,10 @@ namespace bib_tracker.Pages
 
         private void GetStationInfo()
         {
-            //StationLogin login = new StationLogin();
-            //await login.ShowAsync();
-
-            //if(login.Result == SignInResult.SignInOK)
-            //{
-                stationId = SharedData.STATION_ID;
-                PopulateExistingCheckInRecordsByStationName();
-                if(CheckIns.Count != 0)
-                    PopulateRemainingParticipants();
-            /*}
-            else if(login.Result == SignInResult.SignInCancel)
-            {
-                Frame.Navigate(typeof(MainPage));
-            }*/
+            stationId = SharedData.STATION_ID;
+            PopulateExistingCheckInRecordsByStationName();
+            if(CheckIns.Count != 0)
+                PopulateRemainingParticipants();
         }
 
         private void PopulateExistingCheckInRecordsByStationName()
