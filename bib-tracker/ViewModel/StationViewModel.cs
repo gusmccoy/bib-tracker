@@ -14,11 +14,17 @@ namespace bib_tracker.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private Station station;
         private StationService stationService;
+        private bool skipOnPropChanged = false;
 
         public StationViewModel(Station station)
         {
             this.station = station;
             stationService = new StationService();
+        }
+
+        public StationViewModel()
+        {
+            skipOnPropChanged = true;
         }
 
         public int Number
@@ -49,8 +55,11 @@ namespace bib_tracker.ViewModel
 
         private void OnPropertyChanged(string property)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-            stationService.UpdateStation(station);
+            if (!skipOnPropChanged)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+                stationService.UpdateStation(station);
+            }
         }
     }
 }

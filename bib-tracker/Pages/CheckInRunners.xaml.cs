@@ -19,6 +19,7 @@ namespace bib_tracker.Pages
         public ObservableCollection<ParticipantViewModel> RemainingParticipants = new ObservableCollection<ParticipantViewModel>();
         public ParticipantCheckInService ParticipantCheckInService;
         public ParticipantService ParticipantService;
+        public StationService StationService;
         private int stationId;
 
         public CheckInRunners()
@@ -26,6 +27,7 @@ namespace bib_tracker.Pages
             this.InitializeComponent();
             ParticipantCheckInService = new ParticipantCheckInService();
             ParticipantService = new ParticipantService();
+            StationService = new StationService();
             GetStationInfo();
         }
 
@@ -50,6 +52,10 @@ namespace bib_tracker.Pages
         private void PopulateExistingCheckInRecordsByStationName()
         {
             CheckIns.Clear();
+            if(StationService.GetStationById(stationId).Number == 0)
+            {
+                StationService.AddStation(stationId);
+            }
             var checkIns = ParticipantCheckInService.GetAllParticipantCheckInsByStation(stationId);
 
             if (checkIns.Count != 0)

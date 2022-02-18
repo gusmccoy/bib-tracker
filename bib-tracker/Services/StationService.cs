@@ -32,6 +32,15 @@ namespace bib_tracker.Services
             stationRepository.Delete(stationNumber);
         }
 
+        public void AddStation(int number)
+        {
+            stationRepository.Add(new Station()
+            {
+                Number = number,
+                Name = "NA"
+            });
+        }
+
         public List<StationViewModel> GetAllStations()
         {
             List<StationViewModel> stationViewModels = new List<StationViewModel>();
@@ -43,6 +52,24 @@ namespace bib_tracker.Services
             }
 
             return stationViewModels;
+        }
+
+        public StationViewModel GetStationById(int id)
+        {
+            List<StationViewModel> stationViewModels = new List<StationViewModel>();
+            var stations = stationRepository.GetAllStations();
+
+            foreach (var station in stations)
+            {
+                if(station.Number == id)
+                {
+                    return new StationViewModel(station);
+                }
+            }
+            return new StationViewModel(new Station() {
+                Number = 0
+            });
+
         }
 
         public void WriteCurrentData(StorageFile file)
