@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="bib_tracker.Pages.StationLoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:bib_tracker.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBlock x:Name="PageHeader" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Text="Station Login"></TextBlock>
+        <TextBlock x:Name="InfoTextBlock" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="57,0,0,0" Text="Enter your station number. If station does not exist, enter the a new station number to generate a new one (You'll be able to set the station's name in Admin -> Station Management Page)" TextWrapping="Wrap" Height="222" Width="414"></TextBlock>
+
+        <controls:DataGrid
+                    Name="ParticipantDataGrid"
+                    ItemsSource="{x:Bind Stations, Mode=OneWay}"
+                    HeadersVisibility="Column"
+                    AlternatingRowBackground="LightBlue"
+                    AutoGenerateColumns="False" Margin="0,141,0,360"
+                    HorizontalAlignment="Center"
+                    CanUserSortColumns="True"
+                    CanUserResizeColumns="True">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+                <controls:DataGridTextColumn Header="Station Name" Binding="{Binding Name}" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+
+        <TextBox Name="LoginTextBox" PlaceholderText="Station Id" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,426,0,0" Height="48" Width="207"/>
+        <Button x:Name="LoginInButton" Content="Login" Margin="0,557,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Click="LoginInButton_Click"/>
+
+    </Grid>
+</Page>

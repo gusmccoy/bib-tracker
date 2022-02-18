@@ -31,22 +31,22 @@ namespace bib_tracker.Pages
             GetStationInfo();
         }
 
-        private async void GetStationInfo()
+        private void GetStationInfo()
         {
-            StationLogin login = new StationLogin();
-            await login.ShowAsync();
+            //StationLogin login = new StationLogin();
+            //await login.ShowAsync();
 
-            if(login.Result == SignInResult.SignInOK)
-            {
+            //if(login.Result == SignInResult.SignInOK)
+            //{
                 stationId = SharedData.STATION_ID;
                 PopulateExistingCheckInRecordsByStationName();
                 if(CheckIns.Count != 0)
                     PopulateRemainingParticipants();
-            }
+            /*}
             else if(login.Result == SignInResult.SignInCancel)
             {
                 Frame.Navigate(typeof(MainPage));
-            }
+            }*/
         }
 
         private void PopulateExistingCheckInRecordsByStationName()
