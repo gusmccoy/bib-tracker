@@ -19,6 +19,7 @@ namespace bib_tracker.Pages
         public ObservableCollection<ParticipantViewModel> RemainingParticipants = new ObservableCollection<ParticipantViewModel>();
         public ParticipantCheckInService ParticipantCheckInService;
         public ParticipantService ParticipantService;
+        public StationService StationService;
         private int stationId;
 
         public CheckInRunners()
@@ -26,30 +27,25 @@ namespace bib_tracker.Pages
             this.InitializeComponent();
             ParticipantCheckInService = new ParticipantCheckInService();
             ParticipantService = new ParticipantService();
+            StationService = new StationService();
             GetStationInfo();
         }
 
-        private async void GetStationInfo()
+        private void GetStationInfo()
         {
-            StationLogin login = new StationLogin();
-            await login.ShowAsync();
-
-            if(login.Result == SignInResult.SignInOK)
-            {
-                stationId = SharedData.STATION_ID;
-                PopulateExistingCheckInRecordsByStationName();
-                if(CheckIns.Count != 0)
-                    PopulateRemainingParticipants();
-            }
-            else if(login.Result == SignInResult.SignInCancel)
-            {
-                Frame.Navigate(typeof(MainPage));
-            }
+            stationId = SharedData.STATION_ID;
+            PopulateExistingCheckInRecordsByStationName();
+            if(CheckIns.Count != 0)
+                PopulateRemainingParticipants();
         }
 
         private void PopulateExistingCheckInRecordsByStationName()
         {
             CheckIns.Clear();
+            if(StationService.GetStationById(stationId).Number == 0)
+            {
+                StationService.AddStation(stationId);
+            }
             var checkIns = ParticipantCheckInService.GetAllParticipantCheckInsByStation(stationId);
 
             if (checkIns.Count != 0)
@@ -82,6 +78,15 @@ namespace bib_tracker.Pages
                 TextBox textBox = sender as TextBox;
                 string input = textBox.Text.Trim();
                 int bib = Int32.Parse(input);
+                if(ParticipantService.GetParticipantByBibNumber(bib).Bib == 0)
+                {
+                    ParticipantService.AddParticipant(new ParticipantViewModel()
+                    {
+                        Bib = bib,
+                        FirstName = "NA",
+                        LastName = "NA"
+                    });
+                }
                 ParticipantCheckInService.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
                 CheckIns.Add(new CheckInViewModel(stationId, bib, DateTime.Now));
                 RemainingParticipants.Clear();
@@ -109,7 +114,7 @@ namespace bib_tracker.Pages
         {
             CheckIns.Clear();
             RemainingParticipants.Clear();
-            var checkins = ParticipantCheckInService.GetAllParticipantCheckIns();
+            var checkins = ParticipantCheckInService.GetAllParticipantCheckInsByStation(stationId);
             foreach (CheckInViewModel checkin in checkins)
             {
                 CheckIns.Add(checkin);

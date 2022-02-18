@@ -31,12 +31,23 @@ namespace bib_tracker.Services
                         switch (filetype)
                         {
                             case Constants.PARTICIPANT:
-                                SqliteDb.AddParticipant(new Participant()
+                                if(line.Length == 3)
                                 {
-                                    Bib = Int32.Parse(line[0]),
-                                    FirstName = line[1].Trim(),
-                                    LastName = line[2].Trim()
-                                });
+                                    SqliteDb.AddParticipant(new Participant()
+                                    {
+                                        Bib = Int32.Parse(line[0]),
+                                        FirstName = line[1].Trim(),
+                                        LastName = line[2].Trim()
+                                    });
+                                }
+                                else
+                                {
+                                    SqliteDb.AddParticipant(new Participant()
+                                    {
+                                        Bib = Int32.Parse(line[0]),
+                                    });
+                                }
+
                                 break;
                             case Constants.STATION:
                                 SqliteDb.AddStation(new Station()

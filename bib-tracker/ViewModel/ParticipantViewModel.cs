@@ -15,12 +15,18 @@ namespace bib_tracker.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private Participant participant = new Participant();
         private ParticipantService participantService = new ParticipantService();
+        private bool skipOnPropChange = false;
 
 
         public ParticipantViewModel(Participant participant)
         {
             this.participant = participant;
             participantService = new ParticipantService();
+        }
+
+        public ParticipantViewModel()
+        {
+            skipOnPropChange = true;
         }
 
         public int Bib
@@ -64,8 +70,11 @@ namespace bib_tracker.ViewModel
 
         private void OnPropertyChanged(string property)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-            participantService.UpdateParticipant(participant);
+            if (!skipOnPropChange)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+                participantService.UpdateParticipant(participant);
+            }
         }
     }
 }

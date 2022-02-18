@@ -44,7 +44,7 @@ namespace bib_tracker
 
         private void CheckInRunnersBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(CheckInRunners));
+            this.Frame.Navigate(typeof(StationLoginPage));
         }
 
         private void AdminPageBtn_Click(object sender, RoutedEventArgs e)

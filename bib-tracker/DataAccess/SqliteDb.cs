@@ -109,6 +109,12 @@ namespace bib_tracker.DataAccess
                 cmd.Connection = conn;
                 long newId = 0;
 
+                if(participant.FirstName == null || participant.LastName == null)
+                {
+                    participant.FirstName = "NA";
+                    participant.LastName = "NA";
+                }
+
                 if (GetParticipantByBibNumber(participant.Bib).FirstName == null)
                 {
                     cmd.CommandText = "INSERT INTO participant (bib, firstName, lastName) VALUES (@Bib, @FirstName, @LastName); SELECT last_insert_rowid()";
