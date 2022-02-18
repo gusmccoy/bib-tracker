@@ -124,7 +124,7 @@ namespace bib_tracker.Pages
         {
             CheckIns.Clear();
             RemainingParticipants.Clear();
-            var checkins = ParticipantCheckInService.GetAllParticipantCheckIns();
+            var checkins = ParticipantCheckInService.GetAllParticipantCheckInsByStation(stationId);
             foreach (CheckInViewModel checkin in checkins)
             {
                 CheckIns.Add(checkin);
